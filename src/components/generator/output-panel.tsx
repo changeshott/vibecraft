@@ -1,0 +1,125 @@
+"use client";
+
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Copy, Download, Check, FileText } from "lucide-react";
+import { DynamicIcon } from "@/components/shared/dynamic-icon";
+import type { GeneratedOutput } from "@/lib/types";
+
+interface OutputPanelProps {
+  outputs: GeneratedOutput[];
+  activeOutput: number;
+  onSetActive: (index: number) => void;
+  onCopy: (text: string) => Promise<void>;
+  onDownload: (content: string, fileName: string) => void;
+}
+
+export function OutputPanel({
+  outputs,
+  activeOutput,
+  onSetActive,
+  onCopy,
+  onDownload,
+}: OutputPanelProps) {
+  const [copied, setCopied] = useState(false);
+
+  if (outputs.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center p-8 bg-black/20 rounded-2xl border border-white/5">
+        <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center mb-6 shadow-inner">
+          <FileText size={28} className="text-white/40" />
+        </div>
+        <h3 className="text-lg font-bold text-white mb-2 tracking-tight tracking-wide">
+          no output yet
+        </h3>
+        <p className="text-sm text-white/50 max-w-sm tracking-tight leading-relaxed">
+          configure your vibe, tech stack, and rules above, then click
+          &quot;generate&quot; to create your ai system instructions.
+        </p>
+      </div>
+    );
+  }
+
+  const current = outputs[activeOutput];
+
+  const handleCopy = async () => {
+    await onCopy(current.content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* IDE tabs */}
+      {outputs.length > 1 && (
+        <div className="flex gap-1 p-1.5 bg-black/40 rounded-xl mb-4 border border-white/5">
+          {outputs.map((output, i) => (
+            <button
+              key={output.ideName}
+              onClick={() => onSetActive(i)}
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all tracking-tight tracking-wide",
+                i === activeOutput
+                  ? "bg-white/10 text-white shadow-sm border border-white/10"
+                  : "text-white/40 hover:text-white/80 hover:bg-white/5"
+              )}
+            >
+              <DynamicIcon name={output.iconName} size={14} strokeWidth={2.5} />
+              {output.fileName}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div className="flex gap-3 mb-4">
+        <button
+          onClick={handleCopy}
+          className={cn(
+            "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 tracking-tight tracking-wide",
+            "bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 text-white"
+          )}
+        >
+          {copied ? (
+            <>
+              <Check size={16} className="text-[#b1ff62]" />
+              copied!
+            </>
+          ) : (
+            <>
+              <Copy size={16} />
+              copy
+            </>
+          )}
+        </button>
+        <button
+          onClick={() => onDownload(current.content, current.fileName)}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-[#b1ff62] hover:bg-[#8eff00] text-black transition-all duration-300 shadow-[0_0_15px_rgba(177,255,98,0.2)] tracking-tight tracking-wide"
+        >
+          <Download size={16} />
+          download {current.fileName}
+        </button>
+      </div>
+
+      {/* Code preview */}
+      <div className="flex-1 overflow-auto max-h-[600px] p-6 bg-black/60 rounded-2xl border border-white/10 shadow-inner">
+        <pre className="text-xs leading-relaxed whitespace-pre-wrap break-words text-white/80 font-mono">
+          {current.content}
+        </pre>
+      </div>
+
+      {/* Stats */}
+      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/[0.08]">
+        <span className="text-xs text-white/40 tracking-tight">
+          {current.content.split("\n").length} lines
+        </span>
+        <span className="text-xs text-white/40 tracking-tight">
+          {(new Blob([current.content]).size / 1024).toFixed(1)} kb
+        </span>
+        <span className="text-xs text-white/40 tracking-tight">
+          {current.fileName}
+        </span>
+      </div>
+    </div>
+  );
+}
