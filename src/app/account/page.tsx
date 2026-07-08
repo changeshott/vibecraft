@@ -26,7 +26,7 @@ export default async function AccountPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-28 pb-20 bg-[#090909] relative overflow-hidden">
+      <main className="min-h-screen pt-28 pb-20 bg-[#090909] relative">
         {/* Ambient background blob */}
         <div className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
 

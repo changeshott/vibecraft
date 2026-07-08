@@ -5,7 +5,7 @@ import { loadIcon } from '@iconify/react';
     try {
       const res = await loadIcon(i);
       console.log(i, !!res);
-    } catch(e) {
+    } catch {
       console.log(i, false);
     }
   }

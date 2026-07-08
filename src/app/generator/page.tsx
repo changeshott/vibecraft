@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Zap } from "lucide-react";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
@@ -33,7 +33,7 @@ export default function GeneratorPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-28 pb-16 bg-[#090909] min-h-screen relative overflow-hidden">
+      <main className="pt-28 pb-16 bg-[#090909] min-h-screen relative">
         {/* Ambient background blob */}
         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
         
@@ -45,7 +45,7 @@ export default function GeneratorPage() {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
               generator
             </h1>
             <p className="text-white/60 mt-4 max-w-lg mx-auto tracking-tight text-lg">
@@ -123,7 +123,15 @@ export default function GeneratorPage() {
 
               {/* Generate Button */}
               <button
-                onClick={generate}
+                onClick={async () => {
+                  const success = await generate();
+                  if (success) {
+                    // Scroll to output on mobile
+                    if (window.innerWidth < 1024) {
+                      document.getElementById("output-preview")?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }
+                }}
                 disabled={isGenerating || config.targetIdes.length === 0}
                 className={cn(
                   "w-full flex items-center justify-center gap-3 py-5 rounded-xl text-base font-bold",
@@ -148,11 +156,18 @@ export default function GeneratorPage() {
               </button>
 
               {/* Error */}
-              {error && (
-                <div className="p-4 rounded-xl border border-error/30 bg-error/5 text-error text-sm">
-                  {error}
-                </div>
-              )}
+              <AnimatePresence>
+                {error && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0, y: -10 }}
+                    animate={{ opacity: 1, height: "auto", y: 0 }}
+                    exit={{ opacity: 0, height: 0, y: -10 }}
+                    className="p-4 rounded-xl border border-error/30 bg-error/5 text-error text-sm mt-4"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Right: Output */}
@@ -161,6 +176,7 @@ export default function GeneratorPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
               className="lg:col-span-2"
+              id="output-preview"
             >
               <div className="sticky top-28 p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl">
                 <h3 className="text-base font-bold text-white mb-6 tracking-tight tracking-wide">

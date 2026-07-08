@@ -8,10 +8,10 @@
 /* --- Design Tokens --- */
 :root {
   /* Background */
-  --bg-primary: 222 47% 6%;
-  --bg-surface: 222 30% 10%;
-  --bg-surface-hover: 222 30% 14%;
-  --bg-elevated: 222 25% 12%;
+  --bg-primary: 0 0% 4%;
+  --bg-surface: 0 0% 7%;
+  --bg-surface-hover: 0 0% 10%;
+  --bg-elevated: 0 0% 9%;
 
   /* Border */
   --border-default: 222 20% 18%;
@@ -83,8 +83,8 @@
   --color-warning: hsl(var(--warning));
   --color-error: hsl(var(--error));
   --color-info: hsl(var(--info));
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
 /* --- Base Styles --- */
@@ -95,14 +95,17 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #090909;
+  overscroll-behavior: none;
 }
 
 body {
-  background: hsl(var(--bg-primary));
+  background: #090909;
   color: hsl(var(--text-primary));
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
 /* --- Selection --- */
@@ -315,4 +318,32 @@ body {
     linear-gradient(hsl(var(--border-subtle) / 0.3) 1px, transparent 1px),
     linear-gradient(90deg, hsl(var(--border-subtle) / 0.3) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+/* --- Performance: GPU-promote heavy blur blobs --- */
+/* Ambient blobs with large blur radii get their own compositing layer
+   to prevent scroll-triggered repaints from flashing white. */
+[class*="blur-[1"][class*="mix-blend-screen"],
+[class*="blur-[1"][class*="rounded-full"] {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+
+/* Prevent overscroll bounce white flash on all scrollable containers */
+main {
+  overscroll-behavior: none;
+}
+
+/* Reduce motion for users who prefer it — eliminates lag entirely */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -6,7 +6,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#090909] relative overflow-hidden">
+    <footer className="border-t border-white/[0.08] relative">
       {/* Subtle ambient light from bottom */}
       <div className="absolute bottom-[-50%] left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none opacity-50" />
       

@@ -63,7 +63,7 @@ export default function LoginPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-28 pb-20 flex flex-col items-center justify-center bg-[#090909] relative overflow-hidden">
+      <main className="min-h-screen pt-28 pb-20 flex flex-col items-center justify-center bg-[#090909] relative">
         {/* Ambient background blob */}
         <motion.div 
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }} 

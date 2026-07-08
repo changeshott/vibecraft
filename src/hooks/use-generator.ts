@@ -54,25 +54,44 @@ export function useGenerator() {
   }, []);
 
   const toggleIde = useCallback((ideId: string) => {
-    setConfig((prev) => ({
-      ...prev,
-      targetIdes: prev.targetIdes.includes(ideId)
-        ? prev.targetIdes.filter((i) => i !== ideId)
-        : [...prev.targetIdes, ideId],
-    }));
-    setOutputs([]);
-  }, []);
+    setConfig((prev) => {
+      const isAdding = !prev.targetIdes.includes(ideId);
+      
+      if (isAdding && userTier === "free" && prev.targetIdes.length >= 1) {
+        setError("Free tier is limited to 1 Target IDE at a time. Upgrade to Pro to generate multiple files simultaneously.");
+        return prev;
+      }
 
-  const generate = useCallback(() => {
+      setError(null);
+      return {
+        ...prev,
+        targetIdes: isAdding
+          ? [...prev.targetIdes, ideId]
+          : prev.targetIdes.filter((i) => i !== ideId),
+      };
+    });
+    setOutputs([]);
+  }, [userTier]);
+
+  const generate = useCallback(async () => {
     setIsGenerating(true);
     setError(null);
 
+    // Artificial delay for UX (feels like it's thinking)
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
     try {
+      if (config.targetIdes.length === 0) {
+        throw new Error("Please select at least one Target IDE.");
+      }
+      
       const result = generateSystemInstructions({ config, userTier });
       setOutputs(result);
       setActiveOutput(0);
+      return true;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Generation failed");
+      return false;
     } finally {
       setIsGenerating(false);
     }

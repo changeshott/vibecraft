@@ -5,12 +5,12 @@ import Link from "next/link";
 import { MoreHorizontal, X, ArrowRight, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import type { User as AuthUser } from "@supabase/supabase-js";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const supabase = createClient();
 
   useEffect(() => {

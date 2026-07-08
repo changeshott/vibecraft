@@ -7,7 +7,7 @@ export default function DocsPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-28 pb-20 bg-[#090909] min-h-screen relative overflow-hidden">
+      <main className="pt-28 pb-20 bg-[#090909] min-h-screen relative">
         {/* Ambient background blobs */}
         <div className="absolute top-[10%] left-[10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
         <div className="absolute bottom-[20%] right-[10%] w-[50vw] h-[50vw] bg-[#b1ff62]/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Copy, Download, Check, FileText } from "lucide-react";
 import { DynamicIcon } from "@/components/shared/dynamic-icon";
+import { motion, AnimatePresence } from "framer-motion";
 import type { GeneratedOutput } from "@/lib/types";
 
 interface OutputPanelProps {
@@ -76,21 +77,37 @@ export function OutputPanel({
         <button
           onClick={handleCopy}
           className={cn(
-            "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 tracking-tight tracking-wide",
-            "bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 text-white"
+            "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 tracking-tight tracking-wide min-w-[120px] justify-center",
+            copied 
+              ? "bg-[#b1ff62]/10 border-[#b1ff62]/50 text-[#b1ff62]" 
+              : "bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 text-white"
           )}
         >
-          {copied ? (
-            <>
-              <Check size={16} className="text-[#b1ff62]" />
-              copied!
-            </>
-          ) : (
-            <>
-              <Copy size={16} />
-              copy
-            </>
-          )}
+          <AnimatePresence mode="wait">
+            {copied ? (
+              <motion.div
+                key="copied"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="flex items-center gap-2"
+              >
+                <Check size={16} strokeWidth={3} />
+                <span>copied!</span>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="copy"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="flex items-center gap-2"
+              >
+                <Copy size={16} />
+                <span>copy</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
         <button
           onClick={() => onDownload(current.content, current.fileName)}

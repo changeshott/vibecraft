@@ -14,7 +14,7 @@ export default function GalleryPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-28 pb-20 bg-[#090909] min-h-screen relative overflow-hidden">
+      <main className="pt-28 pb-20 bg-[#090909] min-h-screen relative">
         {/* Ambient background blob */}
         <motion.div 
           animate={{ x: [-20, 20, -20], y: [-20, 20, -20] }} 
