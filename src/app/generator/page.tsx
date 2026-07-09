@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Zap } from "lucide-react";
+import { Sparkles, Zap, X } from "lucide-react";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { VibeSelector } from "@/components/generator/vibe-selector";
@@ -9,10 +10,12 @@ import { StackConfig } from "@/components/generator/stack-config";
 import { RulesConfig } from "@/components/generator/rules-config";
 import { IdeSelector } from "@/components/generator/ide-selector";
 import { OutputPanel } from "@/components/generator/output-panel";
+import { LoadingAnimation } from "@/components/generator/loading-animation";
 import { useGenerator } from "@/hooks/use-generator";
 import { cn } from "@/lib/utils";
 
 export default function GeneratorPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     config,
     outputs,
@@ -36,7 +39,7 @@ export default function GeneratorPage() {
       <main className="pt-28 pb-16 bg-[#090909] min-h-screen relative">
         {/* Ambient background blob */}
         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
-        
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <motion.div
@@ -55,13 +58,13 @@ export default function GeneratorPage() {
           </motion.div>
 
           {/* Main layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* Left: Configuration */}
+          <div className="max-w-3xl mx-auto space-y-6">
+            {/* Configuration Form */}
             <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-              className="lg:col-span-3 space-y-6"
+              className="space-y-6"
             >
               {/* Step 1: Vibe */}
               <section className="p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl">
@@ -104,6 +107,7 @@ export default function GeneratorPage() {
                   selectedRules={config.rules}
                   onToggle={toggleRule}
                   userTier={userTier}
+                  selectedVibeId={config.vibe}
                 />
               </section>
 
@@ -124,12 +128,10 @@ export default function GeneratorPage() {
               {/* Generate Button */}
               <button
                 onClick={async () => {
+                  setIsModalOpen(true);
                   const success = await generate();
-                  if (success) {
-                    // Scroll to output on mobile
-                    if (window.innerWidth < 1024) {
-                      document.getElementById("output-preview")?.scrollIntoView({ behavior: "smooth" });
-                    }
+                  if (!success) {
+                    setIsModalOpen(false);
                   }
                 }}
                 disabled={isGenerating || config.targetIdes.length === 0}
@@ -158,7 +160,7 @@ export default function GeneratorPage() {
               {/* Error */}
               <AnimatePresence>
                 {error && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, height: 0, y: -10 }}
                     animate={{ opacity: 1, height: "auto", y: 0 }}
                     exit={{ opacity: 0, height: 0, y: -10 }}
@@ -169,32 +171,57 @@ export default function GeneratorPage() {
                 )}
               </AnimatePresence>
             </motion.div>
-
-            {/* Right: Output */}
-            <motion.div
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-              className="lg:col-span-2"
-              id="output-preview"
-            >
-              <div className="sticky top-28 p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl">
-                <h3 className="text-base font-bold text-white mb-6 tracking-tight tracking-wide">
-                  output preview
-                </h3>
-                <OutputPanel
-                  outputs={outputs}
-                  activeOutput={activeOutput}
-                  onSetActive={setActiveOutput}
-                  onCopy={copyToClipboard}
-                  onDownload={downloadFile}
-                />
-              </div>
-            </motion.div>
           </div>
         </div>
       </main>
       <Footer />
+
+      {/* Output Preview Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-[#050505]/95"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="relative w-full max-w-5xl max-h-[95vh] flex flex-col p-6 sm:p-8 rounded-[2rem] border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden"
+            >
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors z-10"
+              >
+                <X size={20} className="text-white/60 hover:text-white" />
+              </button>
+              
+              {isGenerating ? (
+                <LoadingAnimation />
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col flex-1 min-h-0"
+                >
+                  <h3 className="text-xl font-bold text-white mb-6 tracking-tight">
+                    output preview
+                  </h3>
+                  <OutputPanel
+                    outputs={outputs}
+                    activeOutput={activeOutput}
+                    onSetActive={setActiveOutput}
+                    onCopy={copyToClipboard}
+                    onDownload={downloadFile}
+                  />
+                </motion.div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

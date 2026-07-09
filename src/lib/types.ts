@@ -19,6 +19,7 @@ export interface ColorPalette {
   success: string;
   warning: string;
   error: string;
+  [key: string]: string;
 }
 
 // --- Typography ---
@@ -32,6 +33,7 @@ export interface TypographyScale {
   body: string;
   small: string;
   code: string;
+  [key: string]: string;
 }
 
 // --- Component Pattern ---
@@ -55,6 +57,9 @@ export interface VibeDefinition {
   componentPatterns: ComponentPattern[];
   animationRules: string[];
   specialInstructions: string[];
+  architectureNotes?: string;
+  enterpriseBlueprints?: { title: string; code: string; language: string; description?: string }[];
+  incompatibleRules?: string[];
 }
 
 // --- Stack Definition ---

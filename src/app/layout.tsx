@@ -77,7 +77,7 @@ export default function RootLayout({
       className={`${jakarta.variable} ${jetbrainsMono.variable} antialiased text-[15px]`}
       style={{ backgroundColor: "#090909" }}
     >
-      <body className="min-h-screen flex flex-col bg-[#090909] text-white overflow-x-hidden relative">
+      <body className="min-h-screen flex flex-col bg-[#090909] text-white overflow-x-clip relative">
         <div className="fixed inset-0 opacity-[0.2] mix-blend-overlay pointer-events-none noise z-0" />
         <div className="relative z-10 flex flex-col min-h-screen">
           {children}

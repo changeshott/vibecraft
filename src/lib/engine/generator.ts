@@ -67,13 +67,18 @@ function composeContent(
   sections.push(buildComponentPatternsSection(vibe));
 
   // --- Animation Rules ---
-  sections.push(buildAnimationSection(vibe));
+  if (config.stacks.animation && vibe.animationRules && vibe.animationRules.length > 0) {
+    sections.push(buildAnimationSection(vibe));
+  }
 
   // --- AI Rules ---
   sections.push(buildAIRulesSection(config, userTier));
 
   // --- Special Instructions ---
   sections.push(buildSpecialInstructionsSection(vibe));
+
+  // --- Enterprise Blueprints ---
+  sections.push(buildEnterpriseSection(vibe));
 
   // --- Footer ---
   sections.push(buildFooter(isFree));
@@ -113,9 +118,12 @@ function buildHeader(vibe: VibeDefinition, ideName: string, isFree: boolean): st
 }
 
 function buildTechnologySection(config: GeneratorConfig): string {
-  const lines = ["## 1. TECHNOLOGY RULES (Strict)", ""];
+  const lines = ["## TECHNOLOGY RULES (Strict)", ""];
 
   const stackEntries = Object.entries(config.stacks);
+  const allImports = new Set<string>();
+  const allFileStructure = new Set<string>();
+
   for (const [, stackId] of stackEntries) {
     if (!stackId) continue;
     const stack = getStackById(stackId);
@@ -126,6 +134,27 @@ function buildTechnologySection(config: GeneratorConfig): string {
       lines.push(`- ${rule}`);
     }
     lines.push("");
+
+    if (stack.imports && stack.imports.length > 0) {
+      stack.imports.forEach((i: string) => allImports.add(i));
+    }
+    if (stack.fileStructure && stack.fileStructure.length > 0) {
+      stack.fileStructure.forEach((f: string) => allFileStructure.add(f));
+    }
+  }
+
+  if (allImports.size > 0) {
+    lines.push("### Allowed Core Imports");
+    lines.push("```typescript");
+    Array.from(allImports).forEach(i => lines.push(`import { ... } from "${i}";`));
+    lines.push("```");
+    lines.push("");
+  }
+
+  if (allFileStructure.size > 0) {
+    lines.push("### Required File Structure");
+    Array.from(allFileStructure).forEach(f => lines.push(`- \`${f}\``));
+    lines.push("");
   }
 
   return lines.join("\n");
@@ -133,7 +162,7 @@ function buildTechnologySection(config: GeneratorConfig): string {
 
 function buildDesignVibeSection(vibe: VibeDefinition): string {
   const lines = [
-    `## 2. DESIGN VIBE: ${vibe.name}`,
+    `## DESIGN VIBE: ${vibe.name}`,
     "",
     `> ${vibe.description}`,
     "",
@@ -162,7 +191,7 @@ function buildDesignVibeSection(vibe: VibeDefinition): string {
 
 function buildComponentPatternsSection(vibe: VibeDefinition): string {
   const lines = [
-    "## 3. COMPONENT PATTERNS",
+    "## COMPONENT PATTERNS",
     "",
     "Use these exact class combinations for consistency. Customize content, NOT structure.",
     "",
@@ -182,7 +211,7 @@ function buildComponentPatternsSection(vibe: VibeDefinition): string {
 
 function buildAnimationSection(vibe: VibeDefinition): string {
   const lines = [
-    "## 4. ANIMATION RULES",
+    "## ANIMATION RULES",
     "",
   ];
 
@@ -194,20 +223,21 @@ function buildAnimationSection(vibe: VibeDefinition): string {
 }
 
 function buildAIRulesSection(config: GeneratorConfig, userTier: UserTier): string {
+  const validRules = config.rules
+    .map(id => getRuleById(id))
+    .filter(rule => rule !== undefined && (rule.tier === "free" || userTier !== "free"));
+
+  if (validRules.length === 0) {
+    return "";
+  }
+
   const lines = [
-    "## 5. AI BEHAVIOR RULES",
+    "## AI BEHAVIOR RULES",
     "",
   ];
 
-  for (const ruleId of config.rules) {
-    const rule = getRuleById(ruleId);
+  for (const rule of validRules) {
     if (!rule) continue;
-
-    // Check tier access
-    if (rule.tier !== "free" && userTier === "free") {
-      continue;
-    }
-
     lines.push(`### ${rule.name}`);
     lines.push(`${rule.description}`);
     lines.push("");
@@ -222,12 +252,50 @@ function buildAIRulesSection(config: GeneratorConfig, userTier: UserTier): strin
 
 function buildSpecialInstructionsSection(vibe: VibeDefinition): string {
   const lines = [
-    "## 6. SPECIAL INSTRUCTIONS FOR THIS VIBE",
+    "## SPECIAL INSTRUCTIONS FOR THIS VIBE",
     "",
   ];
 
   for (const instruction of vibe.specialInstructions) {
     lines.push(`- ${instruction}`);
+  }
+
+  return lines.join("\n");
+}
+
+function buildEnterpriseSection(vibe: VibeDefinition): string {
+  if (!vibe.architectureNotes && (!vibe.enterpriseBlueprints || vibe.enterpriseBlueprints.length === 0)) {
+    return "";
+  }
+
+  const lines = [
+    "## ENTERPRISE ARCHITECTURE & BLUEPRINTS",
+    "",
+    "> *Note: These blueprints provide the structural foundation for this vibe.*",
+    "",
+  ];
+
+  if (vibe.architectureNotes) {
+    lines.push("### Architecture Notes");
+    lines.push(vibe.architectureNotes);
+    lines.push("");
+  }
+
+  if (vibe.enterpriseBlueprints && vibe.enterpriseBlueprints.length > 0) {
+    lines.push("### Component & System Blueprints");
+    lines.push("");
+
+    for (const bp of vibe.enterpriseBlueprints) {
+      lines.push(`#### ${bp.title}`);
+      if (bp.description) {
+        lines.push(bp.description);
+      }
+      lines.push("");
+      lines.push(`\`\`\`${bp.language}`);
+      lines.push(bp.code);
+      lines.push(`\`\`\``);
+      lines.push("");
+    }
   }
 
   return lines.join("\n");

@@ -105,7 +105,6 @@ body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior: none;
 }
 
 /* --- Selection --- */
@@ -333,7 +332,6 @@ body {
 
 /* Prevent overscroll bounce white flash on all scrollable containers */
 main {
-  overscroll-behavior: none;
 }
 
 /* Reduce motion for users who prefer it — eliminates lag entirely */

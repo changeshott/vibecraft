@@ -26,9 +26,9 @@ export function HeroSection() {
     <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-28 pb-20 md:pt-36 md:pb-28">
       {/* Background fluid/grainy effects matching image */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
-        <motion.div animate={{ x: [-20, 20, -20], y: [-20, 20, -20] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[10%] left-[10%] w-[40vw] h-[40vw] bg-white/20 rounded-full blur-[120px] mix-blend-screen opacity-40" />
-        <motion.div animate={{ x: [30, -30, 30], y: [20, -20, 20] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-[20%] right-[5%] w-[50vw] h-[50vw] bg-white/20 rounded-full blur-[150px] mix-blend-screen opacity-30" />
-        <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[60%] left-[60%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/10 rounded-full blur-[150px] mix-blend-screen" />
+        <div className="absolute top-[10%] left-[10%] w-[40vw] h-[40vw] bg-white/20 rounded-full blur-[120px] mix-blend-screen opacity-40" />
+        <div className="absolute bottom-[20%] right-[5%] w-[50vw] h-[50vw] bg-white/20 rounded-full blur-[150px] mix-blend-screen opacity-30" />
+        <div className="absolute top-[60%] left-[60%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/10 rounded-full blur-[150px] mix-blend-screen" />
       </div>
 
       <div className="relative z-10 w-full max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -177,7 +177,7 @@ export function ProblemSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="text-center mb-16"
         >
           <motion.h2
@@ -204,7 +204,7 @@ export function ProblemSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="grid md:grid-cols-2 gap-8"
         >
           {/* Before */}
@@ -315,13 +315,13 @@ export function HowItWorksSection() {
 
   return (
     <section className="py-20 md:py-28 relative">
-      <motion.div animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
+      <div className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="text-center mb-16"
         >
           <motion.h2
@@ -336,7 +336,7 @@ export function HowItWorksSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="grid md:grid-cols-3 gap-8"
         >
           {steps.map((step, i) => (
@@ -479,17 +479,17 @@ export function ResultShowcaseSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
 
         <div className="text-center mb-16">
-          <motion.h2 variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.15 }} className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white">
+          <motion.h2 variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white">
             Made for building,<br className="md:hidden" /> not prompting.
           </motion.h2>
-          <motion.p variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.15 }} className="mt-6 text-white/50 max-w-2xl mx-auto text-lg tracking-tight">
+          <motion.p variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="mt-6 text-white/50 max-w-2xl mx-auto text-lg tracking-tight">
             Set up your brand and stack once. Generate a strict constraint system for your AI, and output on-brand visuals forever.
           </motion.p>
         </div>
 
         {/* Carousel Container */}
         <motion.div
-          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.15 }} variants={fadeInUp} custom={2}
+          initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeInUp} custom={2}
           className="relative w-full -mx-4 sm:mx-0 px-4 sm:px-0"
         >
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 hide-scrollbar scroll-smooth" id="result-carousel">
@@ -532,7 +532,7 @@ export function ResultShowcaseSection() {
         </motion.div>
 
         {/* Tabs indicator */}
-        <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.15 }} className="flex items-center justify-center gap-2 flex-wrap mt-4">
+        <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="flex items-center justify-center gap-2 flex-wrap mt-4">
           {steps.map((step, i) => (
             <button
               key={step.id}
@@ -562,13 +562,13 @@ export function ResultShowcaseSection() {
 export function VibeShowcaseSection() {
   return (
     <section className="py-20 md:py-28 relative">
-      <motion.div animate={{ y: [-30, 30, -30], opacity: [0.4, 0.6, 0.4] }} transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[50%] right-[-10%] w-[30vw] h-[30vw] bg-white/5 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
+      <div className="absolute top-[50%] right-[-10%] w-[30vw] h-[30vw] bg-white/5 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="text-center mb-16"
         >
           <motion.h2
@@ -591,7 +591,7 @@ export function VibeShowcaseSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {allVibes.map((vibe, i) => (
@@ -714,13 +714,13 @@ export function FeaturesSection() {
 
   return (
     <section className="py-24 md:py-32 relative">
-      <motion.div animate={{ x: [-40, 40, -40] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20"
         >
           <div className="max-w-2xl">
@@ -747,7 +747,7 @@ export function FeaturesSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {features.map((feature, i) => (
@@ -808,7 +808,7 @@ export function PricingSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={fadeInUp}
           custom={0}
           className="mb-8 rounded-[1.5rem] border border-white/[0.08] bg-[#111] overflow-hidden flex flex-col md:flex-row shadow-2xl relative group"
@@ -854,7 +854,7 @@ export function PricingSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {/* Card 1 */}
@@ -1010,67 +1010,99 @@ export function FAQSection() {
 
   return (
     <section className="py-20 md:py-28 relative">
-      <motion.div animate={{ rotate: [0, 180, 360] }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
+      <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
 
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
-          className="text-center mb-16 py-2 overflow-visible"
-        >
-          <motion.h2
-            variants={fadeInUp}
-            custom={0}
-            className="text-2xl md:text-4xl font-bold tracking-tight text-white leading-normal"
-          >
-            frequently asked questions
-          </motion.h2>
-        </motion.div>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.15 }}
-          className="space-y-4"
-        >
-          {faqs.map((faq, i) => (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-start">
+          
+          {/* Left Column */}
+          <div className="lg:col-span-7 lg:border-r lg:border-dashed lg:border-white/20 lg:pr-12 xl:pr-16">
             <motion.div
-              key={i}
-              variants={fadeInUp}
-              custom={i + 1}
-              className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl overflow-hidden hover:bg-white/[0.04] transition-colors duration-300"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="mb-12"
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left"
+              <motion.h2
+                variants={fadeInUp}
+                custom={0}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight"
               >
-                <span className="text-base font-bold text-white pr-4 tracking-tight tracking-wide">
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  size={20}
-                  className={cn(
-                    "text-white/40 flex-shrink-0 transition-transform duration-300",
-                    openIndex === i && "rotate-180 text-[#b1ff62]"
-                  )}
-                />
-              </button>
-              <div
-                className={cn(
-                  "overflow-hidden transition-all duration-300 ease-in-out",
-                  openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                )}
-              >
-                <div className="px-6 pb-6">
-                  <p className="text-sm text-white/60 leading-relaxed tracking-tight">
-                    {faq.a}
-                  </p>
-                </div>
-              </div>
+                quick answers <br className="hidden md:block" /> for creators
+              </motion.h2>
             </motion.div>
-          ))}
-        </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="space-y-0 border-t border-dashed border-white/20"
+            >
+              {faqs.map((faq, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeInUp}
+                  custom={i + 1}
+                  className="border-b border-dashed border-white/20"
+                >
+                  <button
+                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                    className="w-full flex items-center justify-between py-6 text-left group"
+                  >
+                    <span className="text-base md:text-lg font-bold text-white pr-4 tracking-tight group-hover:text-white/80 transition-colors">
+                      {faq.q}
+                    </span>
+                    <span className="relative flex-shrink-0 w-6 h-6 flex items-center justify-center text-white/40 transition-colors group-hover:text-white">
+                      <motion.div
+                        initial={false}
+                        animate={{ rotate: openIndex === i ? 45 : 0 }}
+                        className={cn("text-3xl font-light leading-none", openIndex === i && "text-[#b1ff62]")}
+                      >
+                        +
+                      </motion.div>
+                    </span>
+                  </button>
+                  <div
+                    className={cn(
+                      "overflow-hidden transition-all duration-300 ease-in-out",
+                      openIndex === i ? "max-h-96 opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"
+                    )}
+                  >
+                    <p className="text-sm md:text-base text-white/60 leading-relaxed tracking-tight max-w-2xl">
+                      {faq.a}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right Column */}
+          <div className="lg:col-span-5 lg:sticky lg:top-32 mt-12 lg:mt-0 lg:pl-12 xl:pl-16">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={fadeInUp}
+              custom={1}
+              className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl p-8 lg:p-10 flex flex-col"
+            >
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 tracking-tight">
+                didn't find what you needed?
+              </h3>
+              <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 tracking-tight">
+                we listen closely. ask a question, share feedback, or drop a quick hello.
+              </p>
+              <Link 
+                href="mailto:support@vibecraft.dev" 
+                className="block w-full text-center py-4 px-6 rounded-xl bg-white text-black text-sm font-bold tracking-tight hover:bg-white/90 transition-colors duration-200"
+              >
+                write to us
+              </Link>
+            </motion.div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
@@ -1081,22 +1113,14 @@ export function FAQSection() {
 // ============================================
 export function CTASection() {
   const radialItems = [
-    "generic blue buttons",
-    "inconsistent padding",
-    "hallucinated APIs",
-    "broken mobile layouts",
-    "random hex codes",
-    "missing animations",
-    "ugly forms",
-    "text-gray-500 everywhere",
-    "unaligned grids",
-    "janky transitions",
-    "wrong font weights",
-    "missing focus states",
-    "default tailwind shadows",
-    "clashing brand colors",
-    "unresponsive tables",
-    "tiny click targets"
+    "generic colors", "bad padding", "fake APIs", "broken mobile",
+    "wrong hex", "no animations", "ugly forms", "text-gray-500",
+    "bad grids", "janky motion", "wrong weights", "no focus",
+    "default shadows", "clashing colors", "bad tables", "tiny targets",
+    "generic UI", "bad spacing", "fake code", "broken layout",
+    "random colors", "static UI", "messy forms", "bad contrast",
+    "misaligned", "janky hover", "wrong fonts", "hidden focus",
+    "flat shadows", "ugly borders", "slow UI", "bad clicks"
   ];
 
   return (
@@ -1105,7 +1129,13 @@ export function CTASection() {
       <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[800px] h-[80vw] max-h-[800px] bg-white/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
 
       {/* Scattered Radial Background */}
-      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-30 md:opacity-40">
+      <div 
+        className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] pointer-events-none opacity-30 md:opacity-40"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)'
+        }}
+      >
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
@@ -1117,7 +1147,7 @@ export function CTASection() {
               <div
                 key={i}
                 className="absolute top-1/2 left-1/2 origin-left whitespace-nowrap text-[10px] md:text-xs font-mono text-white/50 tracking-wider uppercase"
-                style={{ transform: `translate(0, -50%) rotate(${angle}deg) translateX(300px)` }}
+                style={{ transform: `translate(0, -50%) rotate(${angle}deg) translateX(450px)` }}
               >
                 <span className="text-[#b1ff62] mr-2">✗</span>
                 {item}
@@ -1127,99 +1157,123 @@ export function CTASection() {
         </motion.div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
-        {/* Top Header */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight mb-20"
-        >
-          Your AI&apos;s design logic is scattered <br className="hidden md:block" /> across random prompts, generic classes, and broken layouts.
-        </motion.h2>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
+
 
         {/* Middle Mockup Image/Component */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative w-full max-w-4xl mx-auto rounded-[2rem] border border-white/10 bg-[#0a0f1c] shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden mb-24 min-h-[400px] flex items-center justify-center group"
-        >
-          {/* Subtle grid in mockup */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+        <div className="relative w-full max-w-6xl mx-auto mb-40 mt-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative w-full rounded-[2rem] border border-white/[0.08] bg-[#111] shadow-2xl overflow-hidden min-h-[400px] flex items-center justify-center group pb-8"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'
+            }}
+          >
+            {/* Subtle grid in mockup */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/20 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/20 to-transparent z-10 pointer-events-none" />
 
-          {/* Dashboard overlay UI */}
-          <div className="relative z-20 p-6 md:p-10 w-full h-full flex flex-col">
-            <div className="flex gap-2 mb-8">
-              <div className="w-3 h-3 rounded-full bg-white/20" />
-              <div className="w-3 h-3 rounded-full bg-white/20" />
-              <div className="w-3 h-3 rounded-full bg-white/20" />
-            </div>
+            {/* Dashboard overlay UI */}
+            <div className="relative z-20 p-6 md:p-10 w-full h-full flex flex-col">
+              <div className="flex gap-2 mb-8">
+                <div className="w-3 h-3 rounded-full bg-white/20" />
+                <div className="w-3 h-3 rounded-full bg-white/20" />
+                <div className="w-3 h-3 rounded-full bg-white/20" />
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full flex-1">
-              <div className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md flex flex-col justify-between">
-                <div>
-                  <h4 className="text-white/40 font-mono text-xs uppercase tracking-widest mb-1">Knowledge Graph</h4>
-                  <p className="text-white font-bold text-lg">Dark SaaS Pro Ruleset</p>
+              <div className="flex flex-col gap-6 h-full flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 min-h-[220px]">
+                  <div className="md:col-span-2 rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] p-8 backdrop-blur-xl hover:bg-white/[0.04] transition-colors duration-300 flex flex-col justify-between shadow-2xl group-hover:border-white/[0.15]">
+                    <div>
+                      <div className="inline-flex items-center px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-[9px] font-bold text-white/60 tracking-widest uppercase w-fit mb-4">
+                        Knowledge Graph
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight">Dark SaaS Pro Ruleset</h3>
+                    </div>
+                    <div className="w-full flex-1 mt-6 relative rounded-xl border border-white/[0.08] overflow-hidden bg-white/[0.02]">
+                      {/* Simulated node graph */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-3 h-3 rounded-full bg-[#b1ff62] absolute top-1/4 left-1/4 shadow-[0_0_15px_rgba(177,255,98,0.5)]" />
+                        <div className="w-3 h-3 rounded-full bg-white absolute top-2/3 left-1/3 shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
+                        <div className="w-3 h-3 rounded-full bg-[#b1ff62] absolute top-1/3 right-1/4 shadow-[0_0_15px_rgba(177,255,98,0.5)]" />
+                        <div className="w-3 h-3 rounded-full bg-white absolute bottom-1/4 right-1/3 shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
+                        <svg className="absolute inset-0 w-full h-full opacity-20">
+                          <line x1="25%" y1="25%" x2="33%" y2="66%" stroke="white" strokeWidth="1.5" />
+                          <line x1="25%" y1="25%" x2="75%" y2="33%" stroke="white" strokeWidth="1.5" />
+                          <line x1="33%" y1="66%" x2="66%" y2="75%" stroke="white" strokeWidth="1.5" />
+                          <line x1="75%" y1="33%" x2="66%" y2="75%" stroke="white" strokeWidth="1.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] p-8 backdrop-blur-xl hover:bg-white/[0.04] transition-colors duration-300 flex flex-col gap-6 justify-center shadow-2xl group-hover:border-white/[0.15]">
+                    <div>
+                      <div className="inline-flex items-center px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-[9px] font-bold text-white/60 tracking-widest uppercase w-fit mb-3">
+                        Tokens
+                      </div>
+                      <p className="text-4xl lg:text-5xl font-bold text-white tracking-tighter">1,024</p>
+                      <p className="text-white/40 text-sm mt-1 tracking-tight">lines of context injected</p>
+                    </div>
+                    <div className="w-full h-px bg-white/[0.08]" />
+                    <div>
+                      <div className="inline-flex items-center px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-[9px] font-bold text-white/60 tracking-widest uppercase w-fit mb-3">
+                        Consistency
+                      </div>
+                      <p className="text-4xl lg:text-5xl font-bold text-[#b1ff62] tracking-tighter">100%</p>
+                      <p className="text-white/40 text-sm mt-1 tracking-tight">across all generated files</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-full flex-1 mt-6 relative rounded-xl border border-white/5 overflow-hidden">
-                  {/* Simulated node graph */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-[#b1ff62] absolute top-1/4 left-1/4 shadow-[0_0_10px_#b1ff62]" />
-                    <div className="w-2 h-2 rounded-full bg-purple-500 absolute top-2/3 left-1/3 shadow-[0_0_10px_purple]" />
-                    <div className="w-2 h-2 rounded-full bg-blue-500 absolute top-1/3 right-1/4 shadow-[0_0_10px_blue]" />
-                    <div className="w-2 h-2 rounded-full bg-white absolute bottom-1/4 right-1/3 shadow-[0_0_10px_white]" />
-                    <svg className="absolute inset-0 w-full h-full opacity-20">
-                      <line x1="25%" y1="25%" x2="33%" y2="66%" stroke="white" strokeWidth="1" />
-                      <line x1="25%" y1="25%" x2="75%" y2="33%" stroke="white" strokeWidth="1" />
-                      <line x1="33%" y1="66%" x2="66%" y2="75%" stroke="white" strokeWidth="1" />
-                      <line x1="75%" y1="33%" x2="66%" y2="75%" stroke="white" strokeWidth="1" />
-                    </svg>
+
+                {/* New Features Row */}
+                <div className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] p-6 backdrop-blur-xl hover:bg-white/[0.04] transition-colors duration-300 shadow-2xl group-hover:border-white/[0.15]">
+                  <div className="inline-flex items-center px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-[9px] font-bold text-white/60 tracking-widest uppercase w-fit mb-4">
+                    Injected Anti-Hallucination Constraints
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "🚫 NO GENERIC CLASSES", "🔒 STRICT HEX CODES", "📐 FLUID LAYOUTS", "✨ FORCED ANIMATIONS",
+                      "🎛️ CUSTOM SHADOWS", "✅ ACCESSIBLE FORMS", "📏 LOCKED PADDING SCALES", "🔠 PRECISE FONT WEIGHTS",
+                      "🎨 HARMONIOUS COLORS", "📱 RESPONSIVE GRIDS", "🎯 ENFORCED FOCUS STATES", "🚫 NO TEXT-GRAY-500",
+                      "🧩 COMPONENT PATTERNS", "🛡️ ANTI-HALLUCINATION", "⚡ FRAMEWORK OPTIMIZED", "🔍 SEMANTIC HTML"
+                    ].map((rule, i) => (
+                      <div key={i} className="px-2.5 py-1.5 rounded-md bg-[#111] border border-white/10 text-[10px] font-mono text-white/60 hover:bg-[#b1ff62]/10 hover:text-[#b1ff62] hover:border-[#b1ff62]/30 transition-colors cursor-default whitespace-nowrap shadow-sm">
+                        {rule}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md flex flex-col gap-6 justify-center">
-                <div>
-                  <h4 className="text-white/40 font-mono text-xs uppercase tracking-widest mb-2">Tokens</h4>
-                  <p className="text-3xl font-bold text-white tracking-tight">1,024</p>
-                  <p className="text-white/40 text-xs mt-1">lines of context injected</p>
-                </div>
-                <div className="w-full h-px bg-white/10" />
-                <div>
-                  <h4 className="text-white/40 font-mono text-xs uppercase tracking-widest mb-2">Consistency</h4>
-                  <p className="text-3xl font-bold text-[#b1ff62] tracking-tight">100%</p>
-                  <p className="text-white/40 text-xs mt-1">across all generated files</p>
-                </div>
-              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          className="flex flex-col items-center"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-4">
-            Fix that <br className="hidden md:block" /> in 2 minutes.
-          </h2>
-          <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto leading-relaxed mb-10">
-            A 2-minute setup built for your exact stack. <br className="hidden sm:block" /> We&apos;ll generate your definitive system instructions.
-          </p>
-          <Link
-            href="/generator"
-            className="inline-flex items-center justify-center px-10 py-3.5 text-sm font-bold rounded-full bg-[#f97316] hover:bg-[#ea580c] text-white shadow-[0_0_30px_rgba(249,115,22,0.3)] transition-all duration-300 hover:scale-105 tracking-wide"
-          >
-            Request Rules
-          </Link>
-        </motion.div>
+          {/* Blur Overlay covering the fading part of the card */}
+          <div className="absolute bottom-[-20%] left-0 w-full h-[100%] backdrop-blur-[64px] pointer-events-none z-20" style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%)', maskImage: 'linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%)' }} />
+
+          {/* CTA Positioned overlapping the faded bottom edge */}
+          <div className="absolute bottom-0 left-0 w-full translate-y-1/3 flex flex-col items-center text-center z-30">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight mb-4 drop-shadow-2xl">
+              Fix that in 2 minutes.
+            </h2>
+            <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto leading-relaxed mb-8 drop-shadow-lg">
+              A 2-minute setup built for your exact stack. <br className="hidden sm:block" /> We&apos;ll generate your definitive system instruction.
+            </p>
+            <Link
+              href="/generator"
+              className="inline-flex items-center justify-center px-12 py-4 text-base font-bold rounded-full bg-[#b1ff62] hover:bg-[#8eff00] text-black shadow-[0_0_40px_rgba(177,255,98,0.4)] transition-all duration-300 hover:scale-105 tracking-wide pointer-events-auto"
+            >
+              Request Rules
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+

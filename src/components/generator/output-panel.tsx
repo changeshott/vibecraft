@@ -50,7 +50,7 @@ export function OutputPanel({
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full min-h-0">
       {/* IDE tabs */}
       {outputs.length > 1 && (
         <div className="flex gap-1 p-1.5 bg-black/40 rounded-xl mb-4 border border-white/5">
@@ -78,8 +78,8 @@ export function OutputPanel({
           onClick={handleCopy}
           className={cn(
             "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 tracking-tight tracking-wide min-w-[120px] justify-center",
-            copied 
-              ? "bg-[#b1ff62]/10 border-[#b1ff62]/50 text-[#b1ff62]" 
+            copied
+              ? "bg-[#b1ff62]/10 border-[#b1ff62]/50 text-[#b1ff62]"
               : "bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 text-white"
           )}
         >
@@ -119,23 +119,26 @@ export function OutputPanel({
       </div>
 
       {/* Code preview */}
-      <div className="flex-1 overflow-auto max-h-[600px] p-6 bg-black/60 rounded-2xl border border-white/10 shadow-inner">
-        <pre className="text-xs leading-relaxed whitespace-pre-wrap break-words text-white/80 font-mono">
+      <div className="flex-1 min-h-0 overflow-auto p-5 sm:p-6 bg-[#0a0a0a] rounded-2xl border border-white/5 shadow-inner relative">
+        <pre className="text-[11px] sm:text-xs leading-relaxed whitespace-pre-wrap break-words text-white/80 font-mono">
           {current.content}
         </pre>
       </div>
 
       {/* Stats */}
-      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/[0.08]">
-        <span className="text-xs text-white/40 tracking-tight">
-          {current.content.split("\n").length} lines
-        </span>
-        <span className="text-xs text-white/40 tracking-tight">
-          {(new Blob([current.content]).size / 1024).toFixed(1)} kb
-        </span>
-        <span className="text-xs text-white/40 tracking-tight">
-          {current.fileName}
-        </span>
+      <div className="flex-none flex flex-wrap items-center gap-4 sm:gap-6 mt-4 pt-4 border-t border-white/10">
+        <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+          <span className="text-[10px] text-white/40 tracking-wider uppercase font-bold">Lines</span>
+          <span className="text-xs text-white/80 font-mono font-bold">{current.content.split("\n").length}</span>
+        </div>
+        <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+          <span className="text-[10px] text-white/40 tracking-wider uppercase font-bold">Size</span>
+          <span className="text-xs text-white/80 font-mono font-bold">{(new Blob([current.content]).size / 1024).toFixed(1)} KB</span>
+        </div>
+        <div className="flex items-center gap-2 px-1">
+          <span className="text-[10px] text-white/40 tracking-wider uppercase font-bold">File</span>
+          <span className="text-xs text-[#b1ff62] font-mono font-bold">{current.fileName}</span>
+        </div>
       </div>
     </div>
   );

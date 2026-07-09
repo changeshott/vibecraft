@@ -1,4 +1,11 @@
-import type { VibeDefinition } from "@/lib/types";
+const fs = require('fs');
+const path = require('path');
+
+const targetFile = path.join(__dirname, '..', 'src', 'lib', 'engine', 'vibes', 'dark-saas-pro.ts');
+
+const output = [];
+
+output.push(`import type { VibeDefinition } from "@/lib/types";
 
 export const darkSaasPro: VibeDefinition = {
   id: "dark-saas-pro",
@@ -39,7 +46,7 @@ export const darkSaasPro: VibeDefinition = {
     accent100: "hsl(262, 83%, 90%)",
     accent200: "hsl(262, 83%, 80%)",
     accent300: "hsl(262, 83%, 70%)",
-    accent400: "hsl(262, 83%, 65%)",
+    accent400: "hsl(262, 83%, 65%)", 
     accent500: "hsl(262, 83%, 58%)",
     accent600: "hsl(262, 83%, 50%)",
     accent700: "hsl(262, 83%, 40%)",
@@ -54,7 +61,7 @@ export const darkSaasPro: VibeDefinition = {
     secondary200: "hsl(210, 100%, 80%)",
     secondary300: "hsl(210, 100%, 70%)",
     secondary400: "hsl(210, 100%, 60%)",
-    secondary500: "hsl(210, 100%, 50%)",
+    secondary500: "hsl(210, 100%, 50%)", 
     secondary600: "hsl(210, 100%, 40%)",
     secondary700: "hsl(210, 100%, 30%)",
     secondary800: "hsl(210, 100%, 20%)",
@@ -64,7 +71,7 @@ export const darkSaasPro: VibeDefinition = {
     success200: "hsl(142, 71%, 80%)",
     success300: "hsl(142, 71%, 70%)",
     success400: "hsl(142, 71%, 55%)",
-    success500: "hsl(142, 71%, 45%)",
+    success500: "hsl(142, 71%, 45%)", 
     success600: "hsl(142, 71%, 35%)",
     success700: "hsl(142, 71%, 25%)",
     success800: "hsl(142, 71%, 15%)",
@@ -75,7 +82,7 @@ export const darkSaasPro: VibeDefinition = {
     warning200: "hsl(38, 92%, 80%)",
     warning300: "hsl(38, 92%, 70%)",
     warning400: "hsl(38, 92%, 60%)",
-    warning500: "hsl(38, 92%, 50%)",
+    warning500: "hsl(38, 92%, 50%)", 
     warning600: "hsl(38, 92%, 40%)",
     warning700: "hsl(38, 92%, 30%)",
     warning800: "hsl(38, 92%, 20%)",
@@ -85,7 +92,7 @@ export const darkSaasPro: VibeDefinition = {
     error100: "hsl(0, 84%, 90%)",
     error200: "hsl(0, 84%, 80%)",
     error300: "hsl(0, 84%, 70%)",
-    error400: "hsl(0, 84%, 60%)",
+    error400: "hsl(0, 84%, 60%)", 
     error500: "hsl(0, 84%, 50%)",
     error600: "hsl(0, 84%, 40%)",
     error700: "hsl(0, 84%, 30%)",
@@ -178,7 +185,7 @@ export const darkSaasPro: VibeDefinition = {
       title: "Universal Hero Section (Portfolio/Landing)",
       description: "A highly impactful hero section suitable for a developer portfolio or product landing page. Features glowing abstract backgrounds and dual CTAs.",
       language: "tsx",
-      code: `// src/components/hero.tsx
+      code: \`// src/components/hero.tsx
 import { ArrowRight, Github } from "lucide-react";
 
 export function Hero() {
@@ -214,13 +221,13 @@ export function Hero() {
       </div>
     </section>
   );
-}`
+}\`
     },
     {
       title: "Bento Grid (Projects or Features)",
       description: "A visually stunning asymmetric bento grid layout perfect for showing off portfolio projects or SaaS features.",
       language: "tsx",
-      code: `// src/components/bento-grid.tsx
+      code: \`// src/components/bento-grid.tsx
 import { ExternalLink, Code2, Rocket, Zap } from "lucide-react";
 
 export function BentoGrid() {
@@ -271,13 +278,13 @@ export function BentoGrid() {
       </div>
     </section>
   );
-}`
+}\`
     },
     {
       title: "E-Commerce Product Detail Page",
       description: "A sleek product page layout for a premium tech or apparel store.",
       language: "tsx",
-      code: `// src/app/product/[id]/page.tsx
+      code: \`// src/app/product/[id]/page.tsx
 "use client";
 import { Star, ShieldCheck, Truck, ArrowRight, Minus, Plus } from "lucide-react";
 import { useState } from "react";
@@ -342,13 +349,13 @@ export default function ProductPage() {
       </div>
     </div>
   );
-}`
+}\`
     },
     {
       title: "Blog / Article Layout",
       description: "A clean, highly readable layout for a technical blog post or documentation.",
       language: "tsx",
-      code: `// src/app/blog/[slug]/page.tsx
+      code: \`// src/app/blog/[slug]/page.tsx
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -401,7 +408,12 @@ export default function BlogPost() {
       </div>
     </article>
   );
-}`
+}\`
     }
   ]
 };
+`);
+
+const finalOutput = output.join('\n');
+fs.writeFileSync(targetFile, finalOutput);
+console.log('Done! Refactored file.');

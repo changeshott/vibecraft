@@ -1,6 +1,7 @@
 "use client";
 
 import { allRules } from "@/lib/engine/templates/rules";
+import { getVibeById } from "@/lib/engine/vibes";
 import { cn } from "@/lib/utils";
 import { Check, Lock } from "lucide-react";
 import type { UserTier } from "@/lib/types";
@@ -9,9 +10,12 @@ interface RulesConfigProps {
   selectedRules: string[];
   onToggle: (ruleId: string) => void;
   userTier: UserTier;
+  selectedVibeId: string;
 }
 
-export function RulesConfig({ selectedRules, onToggle, userTier }: RulesConfigProps) {
+export function RulesConfig({ selectedRules, onToggle, userTier, selectedVibeId }: RulesConfigProps) {
+  const currentVibe = getVibeById(selectedVibeId);
+  const incompatibleRules = currentVibe?.incompatibleRules || [];
   return (
     <div className="space-y-4">
       <div>
@@ -23,6 +27,8 @@ export function RulesConfig({ selectedRules, onToggle, userTier }: RulesConfigPr
 
       <div className="space-y-2">
         {allRules.map((rule) => {
+          if (incompatibleRules.includes(rule.id)) return null;
+
           const isSelected = selectedRules.includes(rule.id);
           const isLocked = rule.tier !== "free" && userTier === "free";
 
