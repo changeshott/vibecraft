@@ -17,12 +17,12 @@ export default async function AccountPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("tier, subscription_end_date")
+    .select("tier")
     .eq("id", user.id)
     .single();
 
   const tier = profile?.tier || "free";
-  const endDate = profile?.subscription_end_date ? new Date(profile.subscription_end_date).toLocaleDateString() : null;
+  const endDate = null;
 
   return (
     <>
