@@ -22,6 +22,16 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Missing variant ID" }, { status: 400 });
     }
 
+    // Map variant names to Lemon Squeezy variant IDs stored in env vars
+    let lsVariantId = variantId;
+    if (variantId === "starter") lsVariantId = process.env.LS_VARIANT_STARTER || "";
+    if (variantId === "pro") lsVariantId = process.env.LS_VARIANT_PRO || "";
+    if (variantId === "pro-plus") lsVariantId = process.env.LS_VARIANT_PRO_PLUS || "";
+
+    if (!lsVariantId) {
+      return NextResponse.json({ error: "Invalid or unconfigured variant ID" }, { status: 400 });
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
@@ -41,7 +51,7 @@ export async function GET(request: Request) {
     // Create a Lemon Squeezy checkout session
     const { error, data } = await createCheckout(
       storeId,
-      variantId,
+      lsVariantId,
       {
         checkoutData: {
           email: user.email,

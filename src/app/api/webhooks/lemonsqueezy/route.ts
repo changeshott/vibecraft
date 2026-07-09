@@ -27,7 +27,10 @@ export async function POST(request: Request) {
     const customData = payload.meta.custom_data;
 
     // Check if it's an event we care about
-    if (eventName === "order_created" || eventName === "subscription_created") {
+    const isPurchase = eventName === "order_created" || eventName === "subscription_created" || eventName === "subscription_updated";
+    const isExpiration = eventName === "subscription_expired";
+
+    if (isPurchase || isExpiration) {
       const userId = customData?.user_id;
 
       if (!userId) {
@@ -35,9 +38,21 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Missing user_id" }, { status: 400 });
       }
 
-      // Identify which plan was bought. In a real app, map variant_id to our plans (Pro, Pro+).
-      // For MVP, we'll just set them to "pro" if they buy anything.
-      const tier = "pro";
+      let tier = "free";
+      let endDate = null;
+
+      if (isPurchase) {
+        tier = "pro";
+        // Attempt to extract subscription end date
+        if (payload.data?.attributes?.renews_at) {
+          endDate = payload.data.attributes.renews_at;
+        } else if (payload.data?.attributes?.ends_at) {
+          endDate = payload.data.attributes.ends_at;
+        }
+      } else if (isExpiration) {
+        tier = "free";
+        endDate = null;
+      }
 
       const supabase = await createClient();
 
@@ -45,6 +60,7 @@ export async function POST(request: Request) {
       const { error } = await supabase.rpc("update_user_tier", {
         p_user_id: userId,
         p_tier: tier,
+        p_end_date: endDate,
         p_secret: process.env.WEBHOOK_DB_SECRET || "",
       });
 

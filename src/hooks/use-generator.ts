@@ -6,7 +6,7 @@ import { generateSystemInstructions } from "@/lib/engine/generator";
 import { allVibes } from "@/lib/engine/vibes";
 
 const defaultConfig: GeneratorConfig = {
-  vibe: "dark-saas-pro",
+  vibe: "minimalist-clean",
   stacks: {
     framework: "nextjs-15",
     styling: "tailwindcss-4",
@@ -24,22 +24,61 @@ const defaultConfig: GeneratorConfig = {
 export function useGenerator() {
   const [config, setConfig] = useState<GeneratorConfig>(defaultConfig);
   const [outputs, setOutputs] = useState<GeneratedOutput[]>([]);
-  
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const vibeParam = urlParams.get("vibe");
-      if (vibeParam && allVibes.some(v => v.id === vibeParam)) {
-        setConfig((prev) => ({ ...prev, vibe: vibeParam }));
-      }
-    }
-  }, []);
+  const [userTier, setUserTier] = useState<UserTier>("free");
   const [activeOutput, setActiveOutput] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // For MVP, all users are "pro" tier temporarily to disable restrictions
-  const userTier: UserTier = "pro";
+  useEffect(() => {
+    let isMounted = true;
+    
+    const initialize = async () => {
+      let currentTier: UserTier = "free";
+      
+      try {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session?.user) {
+          const { data } = await supabase
+            .from("profiles")
+            .select("tier")
+            .eq("id", session.user.id)
+            .single();
+            
+          if (data && (data.tier === "pro" || data.tier === "free")) {
+            currentTier = data.tier as UserTier;
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch tier:", err);
+      }
+      
+      if (isMounted) {
+        setUserTier(currentTier);
+        
+        // After determining tier, check URL for vibe param
+        if (typeof window !== "undefined") {
+          const urlParams = new URLSearchParams(window.location.search);
+          const vibeParam = urlParams.get("vibe");
+          
+          if (vibeParam) {
+            const vibeObj = allVibes.find(v => v.id === vibeParam);
+            if (vibeObj && (vibeObj.tier === "free" || currentTier === "pro")) {
+              setConfig((prev) => ({ ...prev, vibe: vibeParam }));
+            }
+          }
+        }
+      }
+    };
+    
+    initialize();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const updateVibe = useCallback((vibeId: string) => {
     setConfig((prev) => ({ ...prev, vibe: vibeId }));

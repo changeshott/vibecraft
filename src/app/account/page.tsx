@@ -17,11 +17,12 @@ export default async function AccountPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("tier")
+    .select("tier, subscription_end_date")
     .eq("id", user.id)
     .single();
 
   const tier = profile?.tier || "free";
+  const endDate = profile?.subscription_end_date ? new Date(profile.subscription_end_date).toLocaleDateString() : null;
 
   return (
     <>
@@ -101,9 +102,16 @@ export default async function AccountPage() {
                       </Link>
                     </div>
                   ) : (
-                    <p className="text-sm text-white/70 tracking-tight leading-relaxed">
-                      you have full access to vibecraft features. thank you for your support!
-                    </p>
+                    <div>
+                      <p className="text-sm text-white/70 tracking-tight leading-relaxed">
+                        you have full access to vibecraft features. thank you for your support!
+                      </p>
+                      {endDate && (
+                        <p className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 tracking-tight">
+                          Subscription renews/expires on: <span className="text-white font-bold">{endDate}</span>
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
