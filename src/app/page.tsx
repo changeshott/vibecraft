@@ -12,6 +12,7 @@ import {
   CTASection,
   TestimonialSection,
   FreeSampleSection,
+  LiveActionDemo,
 } from "@/components/landing/client-components";
 
 export default function LandingPage() {
@@ -20,6 +21,7 @@ export default function LandingPage() {
       <Navbar />
       <main>
         <HeroSection />
+        <LiveActionDemo />
         <ProblemSection />
         <HowItWorksSection />
         <ResultShowcaseSection />

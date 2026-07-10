@@ -95,61 +95,26 @@ export default function PricingPage() {
           <motion.div 
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="max-w-md mx-auto"
           >
-            {/* Card 1 */}
             <PricingCard 
                delay={1}
-               title="Starter"
-               price="$19"
-               period="one-time"
-               badge="1 Premium Pack"
-               desc="Unlock 1 premium vibe pack with full stack options and no watermarks."
-               features={[
-                 "1 premium vibe pack",
-                 "All tech stack options",
-                 "All IDE formats",
-                 "No watermark"
-               ]}
-               buttonType="secondary"
-               href="/api/checkout?variant=starter"
-            />
-            {/* Card 2 */}
-            <PricingCard 
-               delay={2}
-               title="Pro"
-               badgeTitle="Most Popular"
+               title="Lifetime Pass"
+               badgeTitle="Best Value"
                badgeColor="text-[#b1ff62]"
                price="$39"
                period="one-time"
-               badge="Lifetime Access"
+               badge="Pay once, own forever"
                desc="Lifetime access to all current AND future vibes. The ultimate value."
                features={[
-                 "All current design vibes",
+                 "All 7 current premium vibes",
                  "All future premium vibes",
                  "All tech stack options",
                  "All IDE formats",
-                 "Priority support"
+                 "Priority email support"
                ]}
                buttonType="primary"
                href="/api/checkout?variant=pro"
-            />
-            {/* Card 3 */}
-            <PricingCard 
-               delay={3}
-               title="Pro+"
-               price="$15"
-               period="/mo"
-               badge="Monthly Updates"
-               desc="Everything in Pro, plus monthly new vibes and private community."
-               features={[
-                 "Everything in Pro",
-                 "Monthly new vibe packs",
-                 "Community Discord",
-                 "Vote on next vibes"
-               ]}
-               buttonType="secondary"
-               href="/api/checkout?variant=pro-plus"
             />
           </motion.div>
 

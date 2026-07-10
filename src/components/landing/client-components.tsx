@@ -255,14 +255,40 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
+              className="mt-12 flex flex-col items-center justify-center gap-4"
             >
-              <Link
-                href="/generator"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-[0.75rem] bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50 transition-all duration-200 tracking-tight text-sm tracking-wide"
-              >
-                try generator free
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
+                <div className="flex items-center bg-black/40 border border-[#b1ff62]/30 hover:border-[#b1ff62]/60 rounded-xl overflow-hidden pr-2 h-[52px] shadow-[0_0_20px_rgba(177,255,98,0.1)] backdrop-blur-md transition-colors max-w-sm w-full sm:w-auto">
+                  <div className="px-4 text-[#b1ff62]/50 font-mono text-sm border-r border-white/10 flex items-center h-full">
+                    $
+                  </div>
+                  <div className="px-4 text-white font-mono text-sm tracking-tight w-full sm:w-56 text-left outline-none bg-transparent h-full flex items-center">
+                    npx vibecraftz@latest
+                  </div>
+                  <button 
+                    onClick={(e) => {
+                      navigator.clipboard.writeText("npx vibecraftz@latest");
+                      const target = e.currentTarget;
+                      const originalHTML = target.innerHTML;
+                      target.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#b1ff62]"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                      setTimeout(() => { target.innerHTML = originalHTML; }, 2000);
+                    }}
+                    className="p-2.5 bg-white/5 hover:bg-white/10 rounded-lg transition-colors group relative border border-white/5"
+                    title="Copy to clipboard"
+                  >
+                    <Copy size={16} className="text-white/60 group-hover:text-white transition-colors" />
+                  </button>
+                </div>
+
+                <div className="text-white/40 text-sm font-medium tracking-wide">or</div>
+
+                <Link
+                  href="/generator"
+                  className="inline-flex items-center justify-center gap-2 px-8 rounded-xl bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-200 tracking-tight text-sm tracking-wide h-[52px]"
+                >
+                  try web visualizer
+                </Link>
+              </div>
             </motion.div>
 
             {/* Social Proof */}
@@ -1630,12 +1656,29 @@ export function CTASection() {
             <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto leading-relaxed mb-8 drop-shadow-lg">
               A 2-minute setup built for your exact stack. <br className="hidden sm:block" /> We&apos;ll generate your definitive system instruction.
             </p>
-            <Link
-              href="/generator"
-              className="inline-flex items-center justify-center px-12 py-4 text-base font-bold rounded-full bg-[#b1ff62] hover:bg-[#8eff00] text-black shadow-[0_0_40px_rgba(177,255,98,0.4)] transition-all duration-300 hover:scale-105 tracking-wide pointer-events-auto"
-            >
-              Request Rules
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center pointer-events-auto mt-4">
+              <div className="flex items-center bg-black/60 border border-[#b1ff62]/40 hover:border-[#b1ff62]/80 rounded-2xl overflow-hidden pr-2 h-[60px] shadow-[0_0_30px_rgba(177,255,98,0.2)] backdrop-blur-xl transition-colors max-w-md w-full sm:w-auto">
+                <div className="px-5 text-[#b1ff62]/50 font-mono text-base border-r border-white/10 flex items-center h-full">
+                  $
+                </div>
+                <div className="px-5 text-white font-mono text-base tracking-tight w-full sm:w-64 text-left outline-none bg-transparent h-full flex items-center">
+                  npx vibecraftz@latest
+                </div>
+                <button 
+                  onClick={(e) => {
+                    navigator.clipboard.writeText("npx vibecraftz@latest");
+                    const target = e.currentTarget;
+                    const originalHTML = target.innerHTML;
+                    target.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#b1ff62]"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    setTimeout(() => { target.innerHTML = originalHTML; }, 2000);
+                  }}
+                  className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors group relative border border-white/5 mr-1"
+                  title="Copy to clipboard"
+                >
+                  <Copy size={20} className="text-white/60 group-hover:text-white transition-colors" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

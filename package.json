@@ -5,8 +5,8 @@
     "dist"
   ],
   "bin": {
-    "vibecraftz": "./dist/cli.js",
-    "vibe": "./dist/cli.js"
+    "vibecraftz": "dist/cli.js",
+    "vibe": "dist/cli.js"
   },
   "scripts": {
     "dev": "next dev",
