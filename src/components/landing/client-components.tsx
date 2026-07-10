@@ -960,12 +960,18 @@ function PricingCard({ delay, title, badgeTitle, badgeColor, price, period, orig
         {desc}
       </p>
 
-      <button className={`w-full py-4 rounded-md text-xs font-bold uppercase tracking-widest transition-all mb-10 hover:scale-[1.02] active:scale-[0.98] ${buttonType === 'primary'
+      <button className={`w-full py-4 rounded-md text-xs font-bold uppercase tracking-widest transition-all mb-2 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center ${buttonType === 'primary'
         ? 'bg-[#b1ff62] hover:bg-[#8eff00] text-black shadow-[0_0_30px_rgba(177,255,98,0.25)] border border-[#b1ff62]/50'
         : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white shadow-xl'
         }`}>
-        {title === 'Pro+' ? 'Subscribe' : 'Get Started'}
+        {title === 'Pro+' ? 'Start 7-Day Free Trial' : 'Get Started'}
       </button>
+
+      {title === 'Pro+' ? (
+        <p className="text-[10px] text-center text-white/40 mb-6 tracking-tight">cancel anytime. no charge for 7 days.</p>
+      ) : (
+        <div className="mb-10" />
+      )}
 
       <div className="space-y-5 pt-8 border-t border-white/[0.08]">
         {features.map((feat: string, i: number) => (
