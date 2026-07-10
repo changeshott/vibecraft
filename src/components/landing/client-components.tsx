@@ -11,12 +11,178 @@ import {
   Check,
   Star,
   ChevronDown,
+  Copy,
 } from "lucide-react";
 import { DynamicIcon } from "@/components/shared/dynamic-icon";
 import { allVibes } from "@/lib/engine/vibes";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fadeInUp } from "@/lib/animations";
+
+// ============================================
+// IDE SIMULATOR (HERO)
+// ============================================
+function IDESimulator() {
+  const [step, setStep] = useState(0);
+
+  // Animation sequence
+  // 0: Typing prompt
+  // 1: Enter pressed, thinking
+  // 2: Reading AGENTS.md
+  // 3: Generating code
+  // 4: Done, reset after delay
+  useEffect(() => {
+    if (step === 0) {
+      const t1 = setTimeout(() => setStep(1), 1500);
+      return () => clearTimeout(t1);
+    } else if (step === 1) {
+      const t2 = setTimeout(() => setStep(2), 800);
+      return () => clearTimeout(t2);
+    } else if (step === 2) {
+      const t3 = setTimeout(() => setStep(3), 1500);
+      return () => clearTimeout(t3);
+    } else if (step === 3) {
+      const t4 = setTimeout(() => setStep(4), 2000);
+      return () => clearTimeout(t4);
+    } else if (step === 4) {
+      const t5 = setTimeout(() => setStep(0), 4000);
+      return () => clearTimeout(t5);
+    }
+  }, [step]);
+
+  return (
+    <div className="relative rounded-2xl border border-white/[0.08] bg-[#0c0c0e] overflow-hidden shadow-2xl flex flex-col font-mono text-sm">
+      {/* Window chrome */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.08] bg-[#1a1a1e]">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+        </div>
+        <div className="flex-1 text-center flex items-center justify-center gap-2 text-xs text-white/40">
+          <Code2 size={12} />
+          page.tsx — vibecraftz-demo
+        </div>
+      </div>
+      
+      {/* Main IDE area */}
+      <div className="flex flex-1 min-h-[300px]">
+        {/* Sidebar */}
+        <div className="w-12 bg-[#141417] border-r border-white/5 flex flex-col items-center py-4 gap-4 text-white/20">
+          <Layers size={18} />
+          <Zap size={18} className="text-white/40" />
+        </div>
+        
+        {/* Editor Area */}
+        <div className="flex-1 p-4 flex flex-col relative overflow-hidden bg-[#0a0a0c]">
+          {/* Top code context */}
+          <div className="text-white/30 text-xs mb-4">
+            <span className="text-[#c678dd]">import</span> {'{'} Button {'}'} <span className="text-[#c678dd]">from</span> <span className="text-[#98c379]">"@/components/ui/button"</span>;
+            <br />
+            <span className="text-[#c678dd]">export default function</span> <span className="text-[#61afef]">Hero</span>() {'{'}
+            <br />
+            &nbsp;&nbsp;<span className="text-[#c678dd]">return</span> (
+          </div>
+
+          {/* AI Chat Box */}
+          <div className="mt-auto z-10 w-full max-w-md ml-auto mr-auto absolute bottom-4 left-0 right-0">
+            <div className="bg-[#1e1e24] border border-white/10 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+              
+              {/* Output / Status area */}
+              {step > 0 && (
+                <div className="p-3 bg-[#18181d] border-b border-white/5 text-xs flex flex-col gap-2">
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 shrink-0">
+                      <Zap size={10} className="text-blue-400" />
+                    </div>
+                    <div className="flex-1 space-y-1.5">
+                      {step >= 1 && (
+                        <div className="text-white/80">I will create a modern pricing card for you.</div>
+                      )}
+                      
+                      {step >= 2 && (
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="flex flex-col gap-1 text-[10px] text-white/50 bg-black/30 p-2 rounded-md font-mono mt-1 border border-white/5">
+                          <div className="flex items-center gap-1.5 text-[#b1ff62]">
+                            <Check size={10} /> Reading AGENTS.md...
+                          </div>
+                          <div className="flex items-center gap-1.5 text-[#b1ff62]">
+                            <Check size={10} /> Applying Dark SaaS Pro vibe
+                          </div>
+                          <div className="flex items-center gap-1.5 text-[#b1ff62]">
+                            <Check size={10} /> Forcing Tailwind CSS 4 syntax
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {step >= 3 && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-[#98c379] mt-2">
+                          <div className="w-3 h-3 border-2 border-[#98c379] border-t-transparent rounded-full animate-spin" />
+                          Generating component...
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Input area */}
+              <div className="p-3 flex items-center gap-3">
+                <div className="text-white/40"><ChevronDown size={16} /></div>
+                <div className="flex-1 text-sm">
+                  {step === 0 ? (
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 1.2, ease: "linear" }}
+                      className="overflow-hidden whitespace-nowrap text-white/90"
+                    >
+                      Create a modern pricing card...
+                    </motion.div>
+                  ) : (
+                    <div className="text-white/90">Create a modern pricing card...</div>
+                  )}
+                </div>
+                <div className="px-2 py-1 bg-white/10 rounded text-[10px] text-white/40">⏎</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Code appearing animation */}
+          {step >= 4 && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="pl-6 text-sm"
+            >
+              <div className="text-[#abb2bf]">
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-[#e06c75]">div</span> <span className="text-[#d19a66]">className</span>=<span className="text-[#98c379]">"p-8 rounded-2xl bg-[#0a0f1c] border border-white/10 hover:border-[#b1ff62]/50 transition-all shadow-xl"</span>&gt;
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-[#e06c75]">h3</span> <span className="text-[#d19a66]">className</span>=<span className="text-[#98c379]">"text-white font-bold text-2xl"</span>&gt;Pro Plan&lt;/<span className="text-[#e06c75]">h3</span>&gt;
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-[#e06c75]">div</span> <span className="text-[#d19a66]">className</span>=<span className="text-[#98c379]">"mt-4 text-[#b1ff62] font-mono"</span>&gt;$15/mo&lt;/<span className="text-[#e06c75]">div</span>&gt;
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-[#e06c75]">Button</span> <span className="text-[#d19a66]">className</span>=<span className="text-[#98c379]">"w-full mt-6 bg-[#b1ff62] text-black hover:bg-white"</span>&gt;
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upgrade Now
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span className="text-[#e06c75]">Button</span>&gt;
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span className="text-[#e06c75]">div</span>&gt;
+              </div>
+            </motion.div>
+          )}
+
+          {/* Bottom context */}
+          <div className="text-white/30 text-xs mt-auto pb-8 pt-4">
+            &nbsp;&nbsp;);
+            <br />
+            {'}'}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ============================================
 // HERO
@@ -81,7 +247,7 @@ export function HeroSection() {
               className="mt-6 text-sm md:text-base text-white/60 max-w-xl mx-auto leading-relaxed"
             >
               stop shipping ugly ai-generated uis. pick a design vibe, configure
-              your stack, and generate system instructions for cursor, copilot, windsurf, or any ai assistant.
+              your stack, and generate system instructions for cursor, copilot, or any ai assistant via DESIGN.md or AGENTS.md.
             </motion.p>
 
             {/* CTAs */}
@@ -133,63 +299,14 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Preview mockup - preserved but restyled to match dark aesthetic */}
+        {/* Interactive IDE Simulator */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
           className="mx-auto w-full max-w-4xl"
         >
-          <div className="relative rounded-2xl border border-white/[0.08] bg-black/40 backdrop-blur-xl overflow-hidden shadow-2xl">
-            {/* Window chrome */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-              </div>
-              <div className="flex-1 text-center">
-                <span className="text-xs text-white/40 font-mono">
-                  vibecraftz.dev/generator
-                </span>
-              </div>
-            </div>
-            {/* Content mock */}
-            <div className="p-6 md:p-8 space-y-4">
-              <div className="flex gap-4 flex-wrap">
-                {[
-                  { name: "Dark SaaS", icon: "Moon" },
-                  { name: "Minimalist", icon: "Square" },
-                  { name: "Bento", icon: "LayoutGrid" }
-                ].map((v) => (
-                  <div
-                    key={v.name}
-                    className="px-4 py-2.5 rounded-xl border border-white/[0.08] bg-white/[0.03] text-sm font-medium text-white/80 flex items-center gap-2"
-                  >
-                    <DynamicIcon name={v.icon} size={14} className="text-[#b1ff62]" />
-                    {v.name}
-                  </div>
-                ))}
-              </div>
-              <div className="code-block p-4 text-xs leading-loose bg-black/60 border border-white/[0.05]">
-                <span className="text-white/40"># VibeCraftz Design System: Dark SaaS Pro</span>
-                <br />
-                <span className="text-white">## 1. TECHNOLOGY RULES</span>
-                <br />
-                <span className="text-white/60">- ALWAYS use Next.js 15 with App Router</span>
-                <br />
-                <span className="text-white/60">- ALWAYS use Tailwind CSS 4 for styling</span>
-                <br />
-                <span className="text-white">## 2. DESIGN VIBE</span>
-                <br />
-                <span className="text-white/60">- Background: hsl(222, 47%, 6%)</span>
-                <br />
-                <span className="text-white/60">- Accent: hsl(262, 83%, 65%)</span>
-                <br />
-                <span className="text-white/40">...</span>
-              </div>
-            </div>
-          </div>
+          <IDESimulator />
         </motion.div>
       </div>
     </section>
@@ -200,6 +317,18 @@ export function HeroSection() {
 // PROBLEM
 // ============================================
 export function ProblemSection() {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [hasGenerated, setHasGenerated] = useState(false);
+
+  const handleSimulate = () => {
+    setIsGenerating(true);
+    setHasGenerated(false);
+    setTimeout(() => {
+      setIsGenerating(false);
+      setHasGenerated(true);
+    }, 2500);
+  };
+
   return (
     <section className="py-20 md:py-28 relative">
       {/* Background ambient glow to tie into hero section */}
@@ -217,19 +346,50 @@ export function ProblemSection() {
             custom={0}
             className="text-2xl md:text-4xl font-bold tracking-tight text-white"
           >
-            your ai makes <span className="text-white/40">ugly websites</span>.
-            <br />
-            here&apos;s why.
+            no figma? no design team? <span className="text-white/40">no problem.</span>
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             custom={1}
             className="mt-6 text-white/60 max-w-2xl mx-auto tracking-tight text-lg"
           >
-            without design constraints, ai coding assistants produce generic,
-            inconsistent, and visually bland output. every project looks the
-            same.
+            vibecraftz gives solo developers and hackers instant, premium ui rules without the hassle of a design tool. get curated palettes, typography, and constraints injected directly into your ide.
           </motion.p>
+        </motion.div>
+
+        {/* Before / After */}
+        {/* Interactive Prompt Trigger */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={fadeInUp}
+          custom={1.5}
+          className="max-w-2xl mx-auto mb-12"
+        >
+          <div className="p-2 pl-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center gap-3 hover:border-white/40 transition-all shadow-xl group">
+            <span className="text-[#b1ff62] font-mono font-bold">~</span>
+            <div className="flex-1 text-sm text-white/80 font-mono overflow-hidden">
+              <span className="opacity-50">/prompt:</span> "Create a modern account creation form"
+            </div>
+            <button
+              onClick={handleSimulate}
+              disabled={isGenerating}
+              className="px-6 py-2 rounded-full bg-white text-black font-bold text-sm hover:bg-[#b1ff62] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {isGenerating ? (
+                <>
+                  <div className="w-3 h-3 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Zap size={14} className="fill-black/20" />
+                  Run Simulation
+                </>
+              )}
+            </button>
+          </div>
         </motion.div>
 
         {/* Before / After */}
@@ -250,14 +410,30 @@ export function ProblemSection() {
                   without vibecraftz
                 </div>
               </div>
-              <div className="mt-6 p-5 bg-white rounded border border-gray-200 shadow-sm relative overflow-hidden group">
-                <div className="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">GENERIC AI OUTPUT</span>
-                </div>
-                <h4 className="text-black font-sans text-lg font-normal mb-1">Create Account</h4>
-                <p className="text-gray-500 font-sans text-xs mb-3">Sign up for free.</p>
-                <input type="text" placeholder="Email address" className="w-full border border-gray-300 p-2 text-sm mb-3 text-black" disabled />
-                <button className="bg-blue-600 text-white text-sm px-4 py-2 w-full">Submit</button>
+              
+              <div className="mt-6 p-5 bg-white rounded border border-gray-200 shadow-sm relative overflow-hidden group min-h-[220px] flex flex-col justify-center">
+                {!hasGenerated && !isGenerating && (
+                  <div className="text-center text-gray-400 text-sm italic w-full">Waiting for prompt...</div>
+                )}
+                
+                {isGenerating && (
+                  <div className="flex flex-col items-center justify-center gap-3 w-full text-gray-500">
+                    <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="text-xs font-mono">Writing HTML/CSS...</div>
+                  </div>
+                )}
+
+                {hasGenerated && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
+                    <div className="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">GENERIC AI OUTPUT</span>
+                    </div>
+                    <h4 className="text-black font-sans text-lg font-normal mb-1">Create Account</h4>
+                    <p className="text-gray-500 font-sans text-xs mb-3">Sign up for free.</p>
+                    <input type="text" placeholder="Email address" className="w-full border border-gray-300 p-2 text-sm mb-3 text-black" disabled />
+                    <button className="bg-blue-600 text-white text-sm px-4 py-2 w-full">Submit</button>
+                  </motion.div>
+                )}
               </div>
 
               <ul className="mt-8 space-y-4 text-xs text-white/50 tracking-tight leading-relaxed">
@@ -291,14 +467,29 @@ export function ProblemSection() {
                 </div>
               </div>
 
-              <div className="mt-6 p-6 bg-[#0a0f1c] rounded-2xl border border-white/10 shadow-lg relative group">
-                <div className="absolute inset-0 bg-[#b1ff62]/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm z-10 rounded-2xl">
-                  <span className="bg-[#b1ff62] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(177,255,98,0.5)]">VIBECRAFTZ OUTPUT</span>
-                </div>
-                <h4 className="text-white font-bold text-xl mb-1 tracking-tight">Create Account</h4>
-                <p className="text-white/50 text-xs mb-4">Join thousands of developers.</p>
-                <input type="text" placeholder="Email address" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white mb-3 focus:border-[#b1ff62] focus:ring-1 focus:ring-[#b1ff62] outline-none transition-all placeholder:text-white/30" disabled />
-                <button className="bg-[#b1ff62] text-black text-sm font-bold px-6 py-2.5 rounded-xl w-full hover:bg-[#9dec52] hover:-translate-y-0.5 shadow-[0_0_15px_rgba(177,255,98,0.2)] transition-all">Get Started</button>
+              <div className="mt-6 p-6 bg-[#0a0f1c] rounded-2xl border border-white/10 shadow-lg relative group min-h-[220px] flex flex-col justify-center">
+                {!hasGenerated && !isGenerating && (
+                  <div className="text-center text-white/30 text-sm italic w-full font-mono">Waiting for prompt...</div>
+                )}
+
+                {isGenerating && (
+                  <div className="flex flex-col items-center justify-center gap-3 w-full text-[#b1ff62]">
+                    <div className="w-6 h-6 border-2 border-[#b1ff62] border-t-transparent rounded-full animate-spin" />
+                    <div className="text-xs font-mono">Applying AGENTS.md rules...</div>
+                  </div>
+                )}
+
+                {hasGenerated && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
+                    <div className="absolute inset-0 bg-[#b1ff62]/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm z-10 rounded-2xl">
+                      <span className="bg-[#b1ff62] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(177,255,98,0.5)]">VIBECRAFTZ OUTPUT</span>
+                    </div>
+                    <h4 className="text-white font-bold text-xl mb-1 tracking-tight">Create Account</h4>
+                    <p className="text-white/50 text-xs mb-4">Join thousands of developers.</p>
+                    <input type="text" placeholder="Email address" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white mb-3 focus:border-[#b1ff62] focus:ring-1 focus:ring-[#b1ff62] outline-none transition-all placeholder:text-white/30" disabled />
+                    <button className="bg-[#b1ff62] text-black text-sm font-bold px-6 py-2.5 rounded-xl w-full hover:bg-[#9dec52] hover:-translate-y-0.5 shadow-[0_0_15px_rgba(177,255,98,0.2)] transition-all">Get Started</button>
+                  </motion.div>
+                )}
               </div>
 
               <ul className="mt-8 space-y-4 text-xs text-white/80 tracking-tight leading-relaxed relative z-10">
@@ -341,7 +532,7 @@ export function HowItWorksSection() {
       icon: Zap,
       title: "generate & ship",
       description:
-        "download your .mdc or agents.md files, drop them in your project, and watch ai deliver.",
+        "download your design.md, .mdc, or agents.md files, drop them in your project, and watch ai deliver.",
     },
   ];
 
@@ -454,7 +645,7 @@ export function ResultShowcaseSection() {
       icon: Zap,
       badge: "EXPORT",
       title: "Instantly compile thousands of lines of prompt engineering.",
-      desc: "VibeCraftz generates hardened .mdc or AGENTS.md files containing strict design constraints for your AI.",
+      desc: "VibeCraftz generates hardened DESIGN.md, .mdc, or AGENTS.md files containing strict design constraints for your AI.",
       mockup: (
         <div className="w-full h-full bg-[#050505] p-6 md:p-10 border-l border-white/5 font-mono text-[10px] md:text-xs text-white/60 leading-relaxed flex flex-col justify-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#050505] to-transparent z-10" />
@@ -727,9 +918,9 @@ export function FeaturesSection() {
       title: "Multi-IDE Compatibility",
       description: "Generate native configuration formats across all major AI code assistants instantly.",
       bullets: [
-        ".mdc file support",
-        "AGENTS.md (Universal Standard)",
-        "Claude Code integration"
+        "Cursor Marketplace Plugin Export",
+        "Google Stitch DESIGN.md",
+        "AGENTS.md & .mdc support"
       ]
     },
     {
@@ -834,7 +1025,25 @@ export function PricingSection() {
             Unlock premium vibes,<br />
             <span className="text-white/40">generate perfect code.</span>
           </h2>
+          <p className="mt-6 text-white/50 max-w-2xl mx-auto text-lg tracking-tight font-medium">
+            <span className="text-white">cursor.directory gives you basic coding standards.</span> VibeCraftz gives you a premium design agency in a file. Stand out from the sea of generic AI outputs.
+          </p>
         </div>
+
+        {/* Quality vs Quantity Banner */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={fadeInUp}
+          custom={0}
+          className="mb-12 rounded-[1.5rem] border border-[#b1ff62]/20 bg-[#b1ff62]/5 p-8 text-center"
+        >
+          <h3 className="text-2xl font-bold text-white mb-4">Why 7 Vibes? Quality {'>'} Quantity</h3>
+          <p className="text-white/70 max-w-3xl mx-auto leading-relaxed">
+            cursor.directory has thousands of community-dumped, often conflicting rules. VibeCraftz focuses on <strong className="text-white">deep, highly-engineered, full-stack architectures</strong>. It takes us weeks to perfect a single vibe. Your $39 lifetime pass gets you the current 7 production-ready vibes, plus <strong className="text-[#b1ff62]">guaranteed access to all future premium vibes</strong> as we expand the catalog.
+          </p>
+        </motion.div>
 
         {/* Free Tier Banner */}
         <motion.div
@@ -914,9 +1123,10 @@ export function PricingSection() {
             price="$39"
             period="one-time"
             badge="Lifetime Access"
-            desc="Lifetime access to all current vibes. Upgrade to Pro+ later for new monthly releases."
+            desc="Lifetime access to all current AND future vibes. The ultimate value."
             features={[
               "All current design vibes",
+              "All future premium vibes",
               "All tech stack options",
               "All IDE formats",
               "Priority support"
@@ -927,7 +1137,7 @@ export function PricingSection() {
           <PricingCard
             delay={3}
             title="Pro+"
-            price="$9"
+            price="$15"
             period="/mo"
             badge="Monthly Updates"
             desc="Everything in Pro, plus monthly new vibes and private community."
@@ -1138,11 +1348,15 @@ export function FAQSection() {
     },
     {
       q: "which ai tools does vibecraftz work with?",
-      a: "vibecraftz generates files for cursor (.mdc), windsurf / devin desktop (agents.md), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
+      a: "vibecraftz generates files for cursor (.mdc), the universal AGENTS.md standard (supported by 28+ tools), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
     },
     {
-      q: "how is this different from free cursor rules on github?",
-      a: "free rules are generic coding guidelines. vibecraftz provides complete, curated design systems — specific color palettes, typography scales, component patterns, animation rules, and anti-hallucination constraints that produce consistent, beautiful output.",
+      q: "how is this different from cursor.directory and free community rules?",
+      a: "cursor.directory is fantastic for standardizing your code (like enforcing strict TypeScript or standardizing imports). vibecraftz is entirely different—it's a premium design engine. we inject curated hex codes, typography scales, animation tokens, and UI constraints so your AI generates stunning, production-ready interfaces instead of basic Bootstrap-looking layouts.",
+    },
+    {
+      q: "why should i pay $29-$99 when community rules are free?",
+      a: "because you're not buying generic rules—you're buying a premium design system converted into prompt engineering. manually tokenizing colors, spacing, and animations for AI takes hours. for the price of a decent lunch, you get instant access to top-tier aesthetics that make your product look professionally designed, giving you a massive edge over everyone else shipping generic AI UI.",
     },
     {
       q: "will it work with my specific tech stack?",
@@ -1429,3 +1643,91 @@ export function CTASection() {
   );
 }
 
+// ============================================
+// FREE SAMPLE SECTION
+// ============================================
+export function FreeSampleSection() {
+  const [copied, setCopied] = useState(false);
+  
+  const sampleCode = `# VibeCraftz Design System: Free Demo
+## 1. Core Constraints
+- ALWAYS use Next.js App Router and Tailwind CSS.
+- NEVER use inline styles. Always use Tailwind utility classes.
+- NEVER use generic colors like 'blue-500' or 'red-500'.
+
+## 2. Color Palette (Minimalist Monochrome)
+- Background: \`bg-[#fcfcfc]\` (light mode) / \`bg-[#09090b]\` (dark mode)
+- Text Primary: \`text-[#09090b]\` (light) / \`text-[#fafafa]\` (dark)
+- Accent/Primary: \`bg-[#18181b] text-white\` (light) / \`bg-[#fafafa] text-black\` (dark)
+- Border: \`border-[#e4e4e7]\` (light) / \`border-[#27272a]\` (dark)
+
+## 3. UI Components & Patterns
+- Buttons: Always use \`rounded-md font-medium px-4 py-2 transition-colors\`.
+- Cards: Always use \`rounded-xl border shadow-sm p-6\`.
+- Inputs: Always use \`rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-offset-2\`.
+- Animation: Add \`hover:opacity-80 transition-opacity\` to interactive elements.
+
+## 4. Instructions
+When asked to generate a component, strictly adhere to the palette and patterns above to ensure a premium, minimalist aesthetic.`;
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(sampleCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <section className="py-24 relative overflow-hidden">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="rounded-[2.5rem] bg-gradient-to-b from-[#111] to-[#0a0a0c] border border-white/10 p-8 md:p-12 lg:p-16 text-center shadow-2xl relative overflow-hidden">
+          {/* Background glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[#b1ff62]/5 blur-[100px] pointer-events-none rounded-full" />
+          
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+            <motion.div variants={fadeInUp} custom={0} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 mb-6">
+              <Zap size={14} className="text-[#b1ff62]" />
+              <span className="text-xs font-bold text-white/80 tracking-tight">Free Trial</span>
+            </motion.div>
+            
+            <motion.h2 variants={fadeInUp} custom={1} className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6">
+              Don't believe us? <br />
+              <span className="text-[#b1ff62]">Try it yourself.</span>
+            </motion.h2>
+            
+            <motion.p variants={fadeInUp} custom={2} className="text-white/60 max-w-2xl mx-auto mb-10 text-lg">
+              Copy this basic VibeCraftz ruleset into a file named <code className="bg-white/10 px-1.5 py-0.5 rounded text-white font-mono text-sm">AGENTS.md</code> in your project root. Open Cursor or Windsurf and ask it to "create a login form". See the magic instantly.
+            </motion.p>
+            
+            <motion.div variants={fadeInUp} custom={3} className="max-w-3xl mx-auto relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-white/10 via-[#b1ff62]/20 to-white/10 rounded-2xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+              
+              <div className="relative bg-[#050505] rounded-2xl border border-white/10 overflow-hidden text-left shadow-2xl">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0a0a0a]">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-white/20" />
+                    <div className="w-3 h-3 rounded-full bg-white/20" />
+                    <div className="w-3 h-3 rounded-full bg-white/20" />
+                  </div>
+                  <div className="text-xs text-white/40 font-mono">AGENTS.md</div>
+                  <button 
+                    onClick={copyToClipboard}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-white transition-all"
+                  >
+                    {copied ? <Check size={12} className="text-[#b1ff62]" /> : <Copy size={12} />}
+                    {copied ? "Copied!" : "Copy Code"}
+                  </button>
+                </div>
+                
+                <div className="p-6 overflow-x-auto max-h-[400px] overflow-y-auto hide-scrollbar">
+                  <pre className="font-mono text-xs md:text-sm text-white/70 leading-relaxed">
+                    <code>{sampleCode}</code>
+                  </pre>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

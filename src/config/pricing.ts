@@ -38,9 +38,10 @@ export const pricingPlans: PricingPlan[] = [
     name: "Pro",
     price: 39,
     period: "one-time",
-    description: "Lifetime access to the current vibe library and full generator.",
+    description: "Lifetime access to all current AND future vibes. The ultimate value.",
     features: [
       "All current design vibes",
+      "All future premium vibes",
       "All tech stack options",
       "All IDE formats",
       "All AI rules",
@@ -53,7 +54,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "pro-plus",
     name: "Pro+",
-    price: 9,
+    price: 15,
     period: "monthly",
     description: "Everything in Pro, plus monthly new vibes and community.",
     features: [

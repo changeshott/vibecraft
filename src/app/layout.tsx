@@ -17,17 +17,18 @@ const jetbrainsMono = JetBrains_Mono({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vibecraftz.dev"),
+  metadataBase: new URL("https://vibecraftz.vercel.app"),
   title: {
     default: "VibeCraftz — Craft Stunning AI Output, Every Time",
     template: "%s | VibeCraftz",
   },
   description:
-    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf / Devin Desktop, or Claude Code.",
+    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, AGENTS.md (Universal Standard), or Claude Code.",
   keywords: [
     "ai coding assistant",
     "cursor rules",
-    "windsurf / devin desktop rules",
+    "AGENTS.md",
+    "Agentic AI Foundation",
     "claude code configuration",
     "system instructions",
     "design system",
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vibecraftz.dev",
+    url: "https://vibecraftz.vercel.app",
     siteName: "VibeCraftz",
     title: "VibeCraftz — Craft Stunning AI Output, Every Time",
     description:

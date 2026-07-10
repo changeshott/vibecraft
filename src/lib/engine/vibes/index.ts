@@ -4,6 +4,8 @@ import { minimalistClean } from "./minimalist-clean";
 import { bentoGrid } from "./bento-grid";
 import { glassmorphism } from "./glassmorphism";
 import { neoBrutalism } from "./neo-brutalism";
+import { aiChatSaas } from "./ai-chat-saas";
+import { fintechDashboard } from "./fintech-dashboard";
 
 export const allVibes: VibeDefinition[] = [
   darkSaasPro,
@@ -11,6 +13,8 @@ export const allVibes: VibeDefinition[] = [
   bentoGrid,
   glassmorphism,
   neoBrutalism,
+  aiChatSaas,
+  fintechDashboard,
 ];
 
 export const freeVibes = allVibes.filter((v) => v.tier === "free");
@@ -20,4 +24,12 @@ export function getVibeById(id: string): VibeDefinition | undefined {
   return allVibes.find((v) => v.id === id);
 }
 
-export { darkSaasPro, minimalistClean, bentoGrid, glassmorphism, neoBrutalism };
+export { 
+  darkSaasPro, 
+  minimalistClean, 
+  bentoGrid, 
+  glassmorphism, 
+  neoBrutalism,
+  aiChatSaas,
+  fintechDashboard
+};

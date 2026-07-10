@@ -3,17 +3,31 @@ import type { IDETarget } from "@/lib/types";
 export const ideTargets: IDETarget[] = [
   {
     id: "cursor",
-    name: "Cursor",
+    name: "Cursor (.mdc)",
     iconName: "simple-icons:cursor",
     fileName: ".cursor/rules/*.mdc",
-    description: "Cursor IDE — place in .cursor/rules/",
+    description: "Cursor IDE (Local) — place in .cursor/rules/",
   },
   {
-    id: "windsurf",
-    name: "Universal (AGENTS.md)",
+    id: "cursor-plugin",
+    name: "Cursor Marketplace Plugin",
+    iconName: "Blocks",
+    fileName: "cursor-plugin.json",
+    description: "Cursor Marketplace Plugin bundle — native JSON format containing rules, hooks, and subagents.",
+  },
+  {
+    id: "design-md",
+    name: "DESIGN.md (Google Stitch Standard)",
+    iconName: "Figma",
+    fileName: "DESIGN.md",
+    description: "Google Stitch open standard — exports design tokens (YAML) + AI Rules (Markdown)",
+  },
+  {
+    id: "agents-md",
+    name: "AGENTS.md (Universal Standard)",
     iconName: "FileText",
     fileName: "AGENTS.md",
-    description: "AGENTS.md — Open standard for Windsurf, Devin Desktop, Cursor, Copilot, etc. Place in project root.",
+    description: "AGENTS.md — Agentic AI Foundation / Linux Foundation standard. 1 file, works in all AI assistants (Codex, Copilot, Cursor, Windsurf, Devin, etc).",
   },
   {
     id: "copilot",

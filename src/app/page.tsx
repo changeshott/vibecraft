@@ -11,6 +11,7 @@ import {
   FAQSection,
   CTASection,
   TestimonialSection,
+  FreeSampleSection,
 } from "@/components/landing/client-components";
 
 export default function LandingPage() {
@@ -25,6 +26,7 @@ export default function LandingPage() {
         <VibeShowcaseSection />
         <FeaturesSection />
         <TestimonialSection />
+        <FreeSampleSection />
         <PricingSection />
         <FAQSection />
         <CTASection />

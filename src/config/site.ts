@@ -6,8 +6,8 @@ export const siteConfig = {
   name: "VibeCraftz",
   tagline: "Craft Stunning AI Output, Every Time",
   description:
-    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf / Devin Desktop, or Claude Code.",
-  url: "https://vibecraftz.dev",
+    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, AGENTS.md (Universal Standard), or Claude Code.",
+  url: "https://vibecraftz.vercel.app",
   author: "changeshott",
   links: {
     twitter: "https://x.com/changeshott",

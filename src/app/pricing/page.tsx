@@ -32,6 +32,20 @@ export default function PricingPage() {
             </p>
           </div>
 
+          {/* Quality vs Quantity Banner */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={0}
+            className="mb-12 rounded-[1.5rem] border border-[#b1ff62]/20 bg-[#b1ff62]/5 p-8 text-center"
+          >
+            <h3 className="text-2xl font-bold text-white mb-4">Why 7 Vibes? Quality {'>'} Quantity</h3>
+            <p className="text-white/70 max-w-3xl mx-auto leading-relaxed">
+              cursor.directory has thousands of community-dumped, often conflicting rules. VibeCraftz focuses on <strong className="text-white">deep, highly-engineered, full-stack architectures</strong>. It takes us weeks to perfect a single vibe. Your $39 lifetime pass gets you the current 7 production-ready vibes, plus <strong className="text-[#b1ff62]">guaranteed access to all future premium vibes</strong> as we expand the catalog.
+            </p>
+          </motion.div>
+
           {/* Free Tier Banner */}
           <motion.div 
             initial="hidden"
@@ -109,9 +123,10 @@ export default function PricingPage() {
                price="$39"
                period="one-time"
                badge="Lifetime Access"
-               desc="Lifetime access to all current vibes. Upgrade to Pro+ later for new monthly releases."
+               desc="Lifetime access to all current AND future vibes. The ultimate value."
                features={[
                  "All current design vibes",
+                 "All future premium vibes",
                  "All tech stack options",
                  "All IDE formats",
                  "Priority support"
@@ -123,7 +138,7 @@ export default function PricingPage() {
             <PricingCard 
                delay={3}
                title="Pro+"
-               price="$9"
+               price="$15"
                period="/mo"
                badge="Monthly Updates"
                desc="Everything in Pro, plus monthly new vibes and private community."

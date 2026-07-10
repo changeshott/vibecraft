@@ -74,14 +74,14 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Windsurf */}
+          {/* AGENTS.md */}
           <section className="mb-12">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-[1rem] bg-white/[0.05] border border-white/[0.1] flex items-center justify-center backdrop-blur-md">
-                <DynamicIcon name="simple-icons:windsurf" size={24} className="text-[#b1ff62]" />
+                <DynamicIcon name="FileText" size={24} className="text-[#b1ff62]" />
               </div>
               <h2 className="text-2xl font-bold text-white tracking-tight tracking-wide">
-                windsurf / devin desktop
+                agents.md (universal standard)
               </h2>
             </div>
             <div className="p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl space-y-4">
@@ -92,14 +92,14 @@ export default function DocsPage() {
                 </code>
               </p>
               <p className="text-sm text-white/60 tracking-tight">
-                <strong className="text-[#b1ff62]">2.</strong> place in your project root or in{" "}
+                <strong className="text-[#b1ff62]">2.</strong> place in your project root or in the{" "}
                 <code className="px-2 py-1 rounded-lg bg-white/5 text-white/90 text-xs font-mono border border-white/10">
                   .agents/
                 </code>{" "}
                 directory.
               </p>
               <p className="text-sm text-white/60 tracking-tight">
-                <strong className="text-[#b1ff62]">3.</strong> windsurf / devin desktop&apos;s cascade will read the file and follow the rules automatically.
+                <strong className="text-[#b1ff62]">3.</strong> backed by the linux foundation, this is the official industry standard. it natively works with 28+ tools including codex, copilot, cursor, windsurf, amp, devin, aider, zed, and jetbrains junie.
               </p>
             </div>
           </section>

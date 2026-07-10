@@ -37,18 +37,160 @@ export function generateSystemInstructions({
     if (!ide) continue;
 
     if (ideId === "cursor") {
-      const coreContent = composeCursorCore(vibe, config, userTier, ide.name);
+      const isFree = userTier === "free";
+
+      // 1. Always Apply (Core constraints) - kept very short
+      const alwaysApplyContent = [
+        "---",
+        `description: Critical AI Behavior Rules - ${vibe.name}`,
+        `globs: ["*"]`,
+        `alwaysApply: true`,
+        "---",
+        buildHeader(vibe, ide.name, isFree),
+        "## STRICT AI CONSTRAINTS",
+        "1. Never guess or hallucinate components. Check design tokens first.",
+        "2. Follow the specific .mdc rules for routing, UI, and architecture based on file globs.",
+        "3. Preserve all existing comments and structure unless explicitly asked to modify.",
+        buildSpecialInstructionsSection(vibe),
+        buildFooter(isFree)
+      ].filter(Boolean).join("\n\n");
+
       outputs.push({
-        content: coreContent,
-        fileName: ".cursor/rules/vibecraft-core.mdc",
+        content: alwaysApplyContent,
+        fileName: ".cursor/rules/000-always-apply.mdc",
         ideName: ide.name,
         iconName: ide.iconName,
       });
 
-      const uiContent = composeCursorUI(vibe, config, userTier, ide.name);
+      // 2. Tech Stack Rules
+      const techContent = [
+        "---",
+        `description: Technology Stack & Architecture - ${vibe.name}`,
+        `globs: ["package.json", "next.config.*", "vite.config.*", "tsconfig.*", "src/**/*.ts", "src/**/*.tsx"]`,
+        "---",
+        buildHeader(vibe, ide.name, isFree),
+        buildTechnologySection(config),
+        buildFooter(isFree)
+      ].filter(Boolean).join("\n\n");
+      
+      outputs.push({
+        content: techContent,
+        fileName: ".cursor/rules/100-tech-stack.mdc",
+        ideName: ide.name,
+        iconName: ide.iconName,
+      });
+
+      // 3. Design Tokens
+      const designContent = [
+        "---",
+        `description: Design Tokens & Palette - ${vibe.name}`,
+        `globs: ["**/*.css", "tailwind.config.*", "src/**/*.tsx", "src/**/*.jsx"]`,
+        "---",
+        buildHeader(vibe, ide.name, isFree),
+        buildDesignVibeSection(vibe),
+        buildFooter(isFree)
+      ].filter(Boolean).join("\n\n");
+
+      outputs.push({
+        content: designContent,
+        fileName: ".cursor/rules/200-design-tokens.mdc",
+        ideName: ide.name,
+        iconName: ide.iconName,
+      });
+
+      // 4. UI Components
+      const uiContent = [
+        "---",
+        `description: UI Component Patterns - ${vibe.name}`,
+        `globs: ["src/components/**/*.tsx", "src/components/**/*.jsx", "src/components/**/*.vue", "src/components/**/*.svelte", "src/ui/**/*.tsx", "src/ui/**/*.jsx"]`,
+        "---",
+        buildHeader(vibe, ide.name, isFree),
+        buildComponentPatternsSection(vibe),
+        buildFooter(isFree)
+      ].filter(Boolean).join("\n\n");
+
       outputs.push({
         content: uiContent,
-        fileName: ".cursor/rules/vibecraft-components.mdc",
+        fileName: ".cursor/rules/300-ui-components.mdc",
+        ideName: ide.name,
+        iconName: ide.iconName,
+      });
+
+      // 5. Animations
+      if (config.stacks.animation && vibe.animationRules && vibe.animationRules.length > 0) {
+        const animContent = [
+          "---",
+          `description: Animation Rules - ${vibe.name}`,
+          `globs: ["src/components/**/*.tsx", "src/components/**/*.jsx", "src/**/*.css"]`,
+          "---",
+          buildHeader(vibe, ide.name, isFree),
+          buildAnimationSection(vibe),
+          buildFooter(isFree)
+        ].filter(Boolean).join("\n\n");
+
+        outputs.push({
+          content: animContent,
+          fileName: ".cursor/rules/400-animations.mdc",
+          ideName: ide.name,
+          iconName: ide.iconName,
+        });
+      }
+
+      // 6. Enterprise / Architecture
+      const enterpriseText = buildEnterpriseSection(vibe);
+      if (enterpriseText.trim()) {
+        const entContent = [
+          "---",
+          `description: Enterprise Architecture Blueprints - ${vibe.name}`,
+          `globs: ["src/lib/**/*.ts", "src/services/**/*.ts", "src/architecture/**/*.md", "src/core/**/*.ts"]`,
+          "---",
+          buildHeader(vibe, ide.name, isFree),
+          enterpriseText,
+          buildFooter(isFree)
+        ].filter(Boolean).join("\n\n");
+
+        outputs.push({
+          content: entContent,
+          fileName: ".cursor/rules/500-enterprise.mdc",
+          ideName: ide.name,
+          iconName: ide.iconName,
+        });
+      }
+
+      // 7. Extended AI Rules
+      const aiRulesText = buildAIRulesSection(config, userTier);
+      if (aiRulesText.trim()) {
+         const aiRulesContent = [
+           "---",
+           `description: Extended AI Rules & Best Practices - ${vibe.name}`,
+           `globs: ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"]`,
+           "---",
+           buildHeader(vibe, ide.name, isFree),
+           aiRulesText,
+           buildFooter(isFree)
+         ].filter(Boolean).join("\n\n");
+         
+         outputs.push({
+           content: aiRulesContent,
+           fileName: ".cursor/rules/600-ai-rules.mdc",
+           ideName: ide.name,
+           iconName: ide.iconName,
+         });
+      }
+
+    } else if (ideId === "design-md") {
+      const content = composeDesignMd(vibe, config, userTier, ide.name);
+      outputs.push({
+        content,
+        fileName: ide.fileName,
+        ideName: ide.name,
+        iconName: ide.iconName,
+      });
+    } else if (ideId === "cursor-plugin") {
+      const content = composeCursorPlugin(vibe, config, userTier, ide.name);
+      outputs.push({
+        content,
+        fileName: ide.fileName,
         ideName: ide.name,
         iconName: ide.iconName,
       });
@@ -107,34 +249,50 @@ function composeContent(
   return sections.filter(Boolean).join("\n\n");
 }
 
-function composeCursorCore(
+
+
+function composeCursorPlugin(
   vibe: VibeDefinition,
   config: GeneratorConfig,
   userTier: UserTier,
   ideName: string
 ): string {
-  const sections: string[] = [];
   const isFree = userTier === "free";
-
-  sections.push(
-    "---",
-    `description: VibeCraftz Core Design System - ${vibe.name}`,
-    `globs: ["*"]`,
-    `alwaysApply: true`,
-    "---"
-  );
   
-  sections.push(buildHeader(vibe, ideName, isFree));
-  sections.push(buildTechnologySection(config));
-  sections.push(buildDesignVibeSection(vibe));
-  sections.push(buildAIRulesSection(config, userTier));
-  sections.push(buildSpecialInstructionsSection(vibe));
-  sections.push(buildFooter(isFree));
+  const plugin = {
+    name: `vibecraftz-${config.vibe === 'custom' ? 'custom' : config.vibe}`,
+    version: "1.0.0",
+    displayName: `VibeCraftz: ${vibe.name}`,
+    description: isFree ? `${vibe.description} (Generated with VibeCraftz Free)` : vibe.description,
+    publisher: "vibecraftz",
+    engines: {
+      cursor: "^0.40.0"
+    },
+    capabilities: {
+      rules: [
+        {
+          id: "core-design",
+          description: "Core Design Rules",
+          content: buildDesignVibeSection(vibe) + "\\n\\n" + buildComponentPatternsSection(vibe)
+        },
+        {
+          id: "technology",
+          description: "Technology Stack Rules",
+          content: buildTechnologySection(config)
+        },
+        {
+          id: "ai-behavior",
+          description: "AI Behavior Constraints",
+          content: buildAIRulesSection(config, userTier)
+        }
+      ]
+    }
+  };
 
-  return sections.filter(Boolean).join("\n\n");
+  return JSON.stringify(plugin, null, 2);
 }
 
-function composeCursorUI(
+function composeDesignMd(
   vibe: VibeDefinition,
   config: GeneratorConfig,
   userTier: UserTier,
@@ -143,19 +301,51 @@ function composeCursorUI(
   const sections: string[] = [];
   const isFree = userTier === "free";
 
-  sections.push(
-    "---",
-    `description: VibeCraftz UI Components - ${vibe.name}`,
-    `globs: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.vue", "**/*.svelte"]`,
-    "---"
-  );
-  
+  // --- YAML Frontmatter (Google Stitch Standard) ---
+  sections.push("---");
+  sections.push(`version: "1.0"`);
+  sections.push(`designSystem: "${vibe.name}"`);
+  sections.push(`description: "${vibe.description}"`);
+  sections.push(`theme:`);
+  sections.push(`  colors:`);
+  const colorEntries = Object.entries(vibe.colors);
+  for (const [name, value] of colorEntries) {
+    sections.push(`    ${name}: "${value}"`);
+  }
+  sections.push(`  typography:`);
+  const typoEntries = Object.entries(vibe.typography);
+  for (const [name, value] of typoEntries) {
+    sections.push(`    ${name}: "${value}"`);
+  }
+  sections.push("---");
+
+  // --- Header ---
   sections.push(buildHeader(vibe, ideName, isFree));
+
+  // --- Technology Rules ---
+  sections.push(buildTechnologySection(config));
+
+  // --- Design Vibe ---
+  sections.push(buildDesignVibeSection(vibe));
+
+  // --- Component Patterns ---
   sections.push(buildComponentPatternsSection(vibe));
+
+  // --- Animation Rules ---
   if (config.stacks.animation && vibe.animationRules && vibe.animationRules.length > 0) {
     sections.push(buildAnimationSection(vibe));
   }
+
+  // --- AI Rules ---
+  sections.push(buildAIRulesSection(config, userTier));
+
+  // --- Special Instructions ---
+  sections.push(buildSpecialInstructionsSection(vibe));
+
+  // --- Enterprise Blueprints ---
   sections.push(buildEnterpriseSection(vibe));
+
+  // --- Footer ---
   sections.push(buildFooter(isFree));
 
   return sections.filter(Boolean).join("\n\n");
