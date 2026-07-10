@@ -1,0 +1,13 @@
+---
+description: Next.js App Router and React 19 best practices
+globs: ["src/app/**/*.tsx", "src/components/**/*.tsx"]
+---
+# Next.js App Router & React 19 Rules
+
+- **App Router:** Strictly follow Next.js App Router (`src/app`) conventions and folder structure.
+- **Server Components:** Default to Server Components for performance and SEO.
+- **Client Components:** Use the `"use client"` directive only when necessary for interactivity, hooks (like `useState`, `useEffect`), or DOM APIs.
+- **React 19:** Leverage React 19 features such as Actions, the `use` hook for promises, and `<form action={...}>`.
+- **Data Fetching:** Fetch data in Server Components or use Server Actions for mutations. Avoid client-side data fetching unless absolutely needed.
+- **SEO:** Utilize Next.js Metadata API for static and dynamic SEO.
+- **Optimization:** Use `next/image` for images, `next/font` for fonts, and `next/link` for navigation.

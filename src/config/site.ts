@@ -6,7 +6,7 @@ export const siteConfig = {
   name: "VibeCraftz",
   tagline: "Craft Stunning AI Output, Every Time",
   description:
-    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf, or Claude Code.",
+    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf / Devin Desktop, or Claude Code.",
   url: "https://vibecraftz.dev",
   author: "changeshott",
   links: {
@@ -18,5 +18,6 @@ export const siteConfig = {
     { label: "Gallery", href: "/gallery" },
     { label: "Pricing", href: "/pricing" },
     { label: "Docs", href: "/docs" },
+    { label: "About", href: "/about" },
   ],
 } as const;

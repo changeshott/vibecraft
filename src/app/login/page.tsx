@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import { Mail, Loader2, ArrowRight } from "lucide-react";
@@ -46,12 +47,23 @@ import { Footer } from "@/components/shared/footer";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next");
+
   const supabase = createClient();
+
+  const getRedirectUrl = () => {
+    const url = new URL(`${window.location.origin}/auth/callback`);
+    if (next) {
+      url.searchParams.set("next", next);
+    }
+    return url.toString();
+  };
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +73,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: getRedirectUrl(),
       },
     });
 
@@ -77,7 +89,7 @@ export default function LoginPage() {
     await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: getRedirectUrl(),
       },
     });
   };
@@ -86,23 +98,13 @@ export default function LoginPage() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: getRedirectUrl(),
       },
     });
   };
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen pt-28 pb-20 flex flex-col items-center justify-center bg-[#090909] relative">
-        {/* Ambient background blob */}
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }} 
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} 
-          className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" 
-        />
-        
-        <div className="w-full max-w-md px-4 sm:px-6 relative z-10">
+    <div className="w-full max-w-md px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -199,8 +201,26 @@ export default function LoginPage() {
               </Link>
               .
             </p>
-          </motion.div>
-        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen pt-28 pb-20 flex flex-col items-center justify-center bg-[#090909] relative">
+        {/* Ambient background blob */}
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }} 
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} 
+          className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" 
+        />
+        
+        <Suspense fallback={<div className="z-10 relative"><Loader2 size={32} className="animate-spin text-white/40" /></div>}>
+          <LoginContent />
+        </Suspense>
       </main>
       <Footer />
     </>

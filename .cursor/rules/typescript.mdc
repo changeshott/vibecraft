@@ -1,0 +1,11 @@
+---
+description: TypeScript guidelines and typing rules
+globs: ["**/*.ts", "**/*.tsx"]
+---
+# TypeScript Guidelines
+
+- **Strict Typing:** Enable and follow strict TypeScript checks. Avoid using `any`; use `unknown` if the type is truly not known.
+- **Interfaces vs. Types:** Prefer `interface` for declaring the shape of objects or component props. Use `type` for unions, intersections, and utility types.
+- **Explicit Returns:** Define explicit return types for functions, especially API route handlers, Server Actions, and custom hooks.
+- **Component Props:** Always type React component props explicitly.
+- **Null Safety:** Check for `null` and `undefined` properly using optional chaining (`?.`) and nullish coalescing (`??`).

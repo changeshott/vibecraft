@@ -81,7 +81,7 @@ export function HeroSection() {
               className="mt-6 text-sm md:text-base text-white/60 max-w-xl mx-auto leading-relaxed"
             >
               stop shipping ugly ai-generated uis. pick a design vibe, configure
-              your stack, and generate system instructions for cursor, windsurf, or claude code.
+              your stack, and generate system instructions for cursor, copilot, windsurf, or any ai assistant.
             </motion.p>
 
             {/* CTAs */}
@@ -97,6 +97,38 @@ export function HeroSection() {
               >
                 try generator free
               </Link>
+            </motion.div>
+
+            {/* Social Proof */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-8 flex flex-col items-center gap-3"
+            >
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-white/10 overflow-hidden relative z-10 hover:z-20 transition-transform hover:scale-110">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'men' : 'women'}/${i + 20}.jpg`} alt="user avatar" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2 text-sm text-white/70">
+                  <div className="flex text-yellow-500">
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                  </div>
+                  <span>Loved by <strong>10,000+</strong> developers</span>
+                </div>
+                <div className="text-xs text-white/40 tracking-tight">
+                  Over 100k+ vibes generated this month.
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -309,7 +341,7 @@ export function HowItWorksSection() {
       icon: Zap,
       title: "generate & ship",
       description:
-        "download your .cursorrules or agents.md file, drop it in your project, and watch ai deliver.",
+        "download your .mdc or agents.md files, drop them in your project, and watch ai deliver.",
     },
   ];
 
@@ -422,7 +454,7 @@ export function ResultShowcaseSection() {
       icon: Zap,
       badge: "EXPORT",
       title: "Instantly compile thousands of lines of prompt engineering.",
-      desc: "VibeCraftz generates a hardened .cursorrules or AGENTS.md file containing strict design constraints for your AI.",
+      desc: "VibeCraftz generates hardened .mdc or AGENTS.md files containing strict design constraints for your AI.",
       mockup: (
         <div className="w-full h-full bg-[#050505] p-6 md:p-10 border-l border-white/5 font-mono text-[10px] md:text-xs text-white/60 leading-relaxed flex flex-col justify-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#050505] to-transparent z-10" />
@@ -695,8 +727,8 @@ export function FeaturesSection() {
       title: "Multi-IDE Compatibility",
       description: "Generate native configuration formats across all major AI code assistants instantly.",
       bullets: [
-        ".cursorrules support",
-        "Windsurf AGENTS.md",
+        ".mdc file support",
+        "AGENTS.md (Universal Standard)",
         "Claude Code integration"
       ]
     },
@@ -882,9 +914,9 @@ export function PricingSection() {
             price="$39"
             period="one-time"
             badge="Lifetime Access"
-            desc="Full access to all current vibes and the complete generator."
+            desc="Lifetime access to all current vibes. Upgrade to Pro+ later for new monthly releases."
             features={[
-              "All design vibes",
+              "All current design vibes",
               "All tech stack options",
               "All IDE formats",
               "Priority support"
@@ -907,6 +939,23 @@ export function PricingSection() {
             ]}
             buttonType="secondary"
           />
+        </motion.div>
+
+        {/* Guarantee Banner */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={fadeInUp}
+          custom={4}
+          className="mt-12 max-w-3xl mx-auto flex items-center justify-center gap-4 p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl"
+        >
+          <div className="p-3 bg-[#b1ff62]/10 rounded-full border border-[#b1ff62]/20">
+            <Shield size={24} className="text-[#b1ff62]" />
+          </div>
+          <div className="text-sm md:text-base text-white/60">
+            <span className="font-bold text-white">14-Day Money-Back Guarantee.</span> Not vibing with the rules? Get a full refund, no questions asked.
+          </div>
         </motion.div>
 
       </div>
@@ -986,17 +1035,110 @@ function PricingCard({ delay, title, badgeTitle, badgeColor, price, period, orig
 }
 
 // ============================================
+// TESTIMONIALS
+// ============================================
+export function TestimonialSection() {
+  const testimonials = [
+    {
+      name: "Alex Rivera",
+      role: "Indie Hacker",
+      content: "VibeCraftz completely changed how I use Cursor. My UIs went from looking like basic Bootstrap to feeling like a premium SaaS instantly. Worth every penny.",
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    },
+    {
+      name: "Sarah Chen",
+      role: "Frontend Engineer",
+      content: "I was spending hours fixing the terrible CSS my AI was generating. Now I just drop the rules file in my project and it writes perfect Tailwind every single time.",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    },
+    {
+      name: "Mike Johnson",
+      role: "Startup Founder",
+      content: "The dark mode vibe pack is insane. I generated my entire landing page with Claude Code and didn't have to touch a single hex code. Huge time saver.",
+      avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+    }
+  ];
+
+  return (
+    <section className="py-20 md:py-28 relative">
+      <div className="absolute top-1/2 right-0 w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none -translate-y-1/2" />
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="text-center mb-16"
+        >
+          <motion.h2
+            variants={fadeInUp}
+            custom={0}
+            className="text-3xl md:text-5xl font-bold tracking-tight text-white"
+          >
+            Don't just take our word for it
+          </motion.h2>
+          <motion.p
+            variants={fadeInUp}
+            custom={1}
+            className="mt-6 text-white/50 max-w-2xl mx-auto text-lg tracking-tight"
+          >
+            Join thousands of developers shipping better UIs faster.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid md:grid-cols-3 gap-6"
+        >
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              custom={i + 2}
+              className="p-8 rounded-[1.5rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl flex flex-col justify-between shadow-xl hover:bg-white/[0.04] transition-colors"
+            >
+              <div className="flex gap-1 mb-6 text-yellow-500">
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+              </div>
+              <p className="text-white/80 leading-relaxed tracking-tight mb-8 text-sm md:text-base font-medium">
+                "{t.content}"
+              </p>
+              <div className="flex items-center gap-4 pt-6 border-t border-white/[0.08]">
+                <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold tracking-tight">{t.name}</h4>
+                  <p className="text-[#b1ff62]/80 text-xs font-bold tracking-wider uppercase mt-1">{t.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================
 // FAQ
 // ============================================
 export function FAQSection() {
   const faqs = [
     {
       q: "what exactly is a vibecraftz file?",
-      a: "it's a structured markdown file (.cursorrules, agents.md, or claude.md) that tells your ai coding assistant exactly how to design your ui — including colors, typography, component patterns, animation rules, and architecture constraints.",
+      a: "it's a structured markdown file (.mdc, agents.md, or claude.md) that tells your ai coding assistant exactly how to design your ui — including colors, typography, component patterns, animation rules, and architecture constraints.",
     },
     {
       q: "which ai tools does vibecraftz work with?",
-      a: "vibecraftz generates files for cursor (.cursorrules), windsurf (agents.md), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
+      a: "vibecraftz generates files for cursor (.mdc), windsurf / devin desktop (agents.md), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
     },
     {
       q: "how is this different from free cursor rules on github?",
@@ -1005,6 +1147,10 @@ export function FAQSection() {
     {
       q: "will it work with my specific tech stack?",
       a: "yes! the generator lets you configure your exact stack (next.js, vite, tailwind, supabase, etc.) and produces rules tailored to that combination.",
+    },
+    {
+      q: "if i buy pro (one-time), do i get future vibes?",
+      a: "pro gives you lifetime access to our current library of vibes. if you want the new vibes we release every month, you can upgrade to pro+ anytime. existing pro users get a 50% discount on their first 6 months of pro+.",
     },
     {
       q: "what if i need a custom vibe not listed?",

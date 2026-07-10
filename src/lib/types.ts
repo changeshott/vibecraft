@@ -117,6 +117,7 @@ export interface IDETarget {
 // --- Generator Config ---
 export interface GeneratorConfig {
   vibe: string;
+  customVibeObj?: VibeDefinition;
   stacks: Record<StackCategory, string>;
   rules: string[];
   targetIdes: string[];

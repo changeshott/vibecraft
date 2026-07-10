@@ -1,0 +1,11 @@
+---
+description: Supabase SSR, database interactions, and authentication
+globs: ["**/supabase/**/*.ts", "src/app/**/*.tsx", "src/lib/supabase.ts"]
+---
+# Supabase & Data Management Rules
+
+- **Supabase SSR:** Use `@supabase/ssr` to securely handle Supabase across Next.js environments (Server, Client, Middleware).
+- **Client Instantiation:** Always use the correct client instantiation method depending on the context (e.g., `createServerClient` in Server Components/Actions, `createBrowserClient` in Client Components).
+- **Authentication:** Protect routes properly. Use Middleware to refresh sessions and protect entire route segments where applicable.
+- **Security:** Never expose the `SUPABASE_SERVICE_ROLE_KEY` to the client. Keep Row Level Security (RLS) policies strict in the database.
+- **Data Fetching:** Fetch data securely from Supabase in Server Components whenever possible.

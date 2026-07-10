@@ -32,13 +32,13 @@ export default function DocsPage() {
             </div>
             <div className="p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl space-y-4">
               <p className="text-sm text-white/60 tracking-tight">
-                <strong className="text-[#b1ff62]">1.</strong> generate your file and download{" "}
+                <strong className="text-[#b1ff62]">1.</strong> generate your files and download{" "}
                 <code className="px-2 py-1 rounded-lg bg-white/5 text-white/90 text-xs font-mono border border-white/10">
-                  .cursorrules
+                  .mdc files
                 </code>
               </p>
               <p className="text-sm text-white/60 tracking-tight">
-                <strong className="text-[#b1ff62]">2.</strong> place the file in your project root directory:
+                <strong className="text-[#b1ff62]">2.</strong> place the files in your <code className="text-xs">.cursor/rules/</code> directory:
               </p>
               <div className="bg-black/40 border border-white/10 rounded-xl p-4 font-mono text-xs text-white/60">
                 <div className="flex items-center gap-3">
@@ -46,17 +46,26 @@ export default function DocsPage() {
                   <span>my-project/</span>
                 </div>
                 <div className="ml-7 flex items-center gap-3 mt-2">
+                  <FolderOpen size={16} />
+                  <span>.cursor/</span>
+                </div>
+                <div className="ml-14 flex items-center gap-3 mt-2">
+                  <FolderOpen size={16} />
+                  <span>rules/</span>
+                </div>
+                <div className="ml-20 flex items-center gap-3 mt-2">
                   <FileText size={16} className="text-[#b1ff62]" />
-                  <span className="text-[#b1ff62]">.cursorrules</span>
+                  <span className="text-[#b1ff62]">vibecraft-core.mdc</span>
+                  <span className="text-white/30 tracking-tight">← place here</span>
+                </div>
+                <div className="ml-20 flex items-center gap-3 mt-2">
+                  <FileText size={16} className="text-[#b1ff62]" />
+                  <span className="text-[#b1ff62]">vibecraft-components.mdc</span>
                   <span className="text-white/30 tracking-tight">← place here</span>
                 </div>
                 <div className="ml-7 flex items-center gap-3 mt-2 text-white/40">
                   <FolderOpen size={16} />
                   <span>src/</span>
-                </div>
-                <div className="ml-7 flex items-center gap-3 mt-2 text-white/40">
-                  <FileText size={16} />
-                  <span>package.json</span>
                 </div>
               </div>
               <p className="text-sm text-white/60 tracking-tight pt-2">
@@ -72,7 +81,7 @@ export default function DocsPage() {
                 <DynamicIcon name="simple-icons:windsurf" size={24} className="text-[#b1ff62]" />
               </div>
               <h2 className="text-2xl font-bold text-white tracking-tight tracking-wide">
-                windsurf
+                windsurf / devin desktop
               </h2>
             </div>
             <div className="p-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl space-y-4">
@@ -90,7 +99,7 @@ export default function DocsPage() {
                 directory.
               </p>
               <p className="text-sm text-white/60 tracking-tight">
-                <strong className="text-[#b1ff62]">3.</strong> windsurf&apos;s cascade will read the file and follow the rules automatically.
+                <strong className="text-[#b1ff62]">3.</strong> windsurf / devin desktop&apos;s cascade will read the file and follow the rules automatically.
               </p>
             </div>
           </section>

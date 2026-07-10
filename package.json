@@ -1,12 +1,19 @@
 {
   "name": "vibecraftz",
   "version": "0.1.0",
-  "private": true,
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "vibecraftz": "./dist/cli.js",
+    "vibe": "./dist/cli.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:cli": "tsup"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
@@ -23,13 +30,16 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@clack/prompts": "^1.7.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "picocolors": "^1.1.1",
     "tailwindcss": "^4",
+    "tsup": "^8.5.1",
     "typescript": "^5"
   }
 }

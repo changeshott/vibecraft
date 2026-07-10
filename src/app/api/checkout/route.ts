@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL(`/login?next=/api/checkout?variant=${variantId}`, request.url));
     }
 
     setupLemonSqueezy();

@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     template: "%s | VibeCraftz",
   },
   description:
-    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf, or Claude Code.",
+    "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf / Devin Desktop, or Claude Code.",
   keywords: [
-    "AI coding",
+    "ai coding assistant",
     "cursor rules",
-    "windsurf rules",
-    "vibe coding",
+    "windsurf / devin desktop rules",
+    "claude code configuration",
     "system instructions",
     "design system",
     "AI design",

@@ -7,7 +7,7 @@ export const neoBrutalism: VibeDefinition = {
   description:
     "A bold, unapologetically raw design featuring thick borders, flat primary colors, visible box shadows, and mono typography. Inspired by Gumroad, Figma community, and indie web.",
   shortDescription: "Thick borders, bold colors, raw typography",
-  tier: "pro",
+  tier: "free",
   previewImage: "/vibes/neo-brutalism.png",
   colors: {
     background: "hsl(60, 30%, 96%)",

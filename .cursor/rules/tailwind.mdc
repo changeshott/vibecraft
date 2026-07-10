@@ -1,0 +1,12 @@
+---
+description: Tailwind CSS v4 and styling conventions
+globs: ["**/*.tsx", "**/*.css", "src/components/**/*.tsx"]
+---
+# Tailwind CSS & Styling Rules
+
+- **Tailwind v4:** Utilize Tailwind CSS v4 syntax and features.
+- **Utility Classes:** Use utility classes for styling. Avoid writing custom CSS unless absolutely necessary.
+- **Class Merging:** When building reusable UI components, use `clsx` and `tailwind-merge` to handle conditional classes and resolve Tailwind conflicts.
+- **Responsive Design:** Follow a mobile-first approach using responsive modifiers (`sm:`, `md:`, `lg:`, etc.).
+- **Animations:** Use `framer-motion` for complex interactive animations and transitions. For simple states, Tailwind's `transition` and `animate-*` utilities are preferred.
+- **Consistency:** Maintain consistent spacing, colors, and typography using the predefined Tailwind theme values.

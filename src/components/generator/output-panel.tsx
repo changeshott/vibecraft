@@ -56,7 +56,7 @@ export function OutputPanel({
         <div className="flex gap-1 p-1.5 bg-black/40 rounded-xl mb-4 border border-white/5">
           {outputs.map((output, i) => (
             <button
-              key={output.ideName}
+              key={output.fileName}
               onClick={() => onSetActive(i)}
               className={cn(
                 "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all tracking-tight tracking-wide",

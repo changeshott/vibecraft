@@ -10,6 +10,7 @@ import {
   PricingSection,
   FAQSection,
   CTASection,
+  TestimonialSection,
 } from "@/components/landing/client-components";
 
 export default function LandingPage() {
@@ -23,6 +24,7 @@ export default function LandingPage() {
         <ResultShowcaseSection />
         <VibeShowcaseSection />
         <FeaturesSection />
+        <TestimonialSection />
         <PricingSection />
         <FAQSection />
         <CTASection />

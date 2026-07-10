@@ -38,7 +38,7 @@ export function Navbar() {
           {/* Left: Optional extra link matching the aesthetic */}
           <div className="hidden sm:flex flex-1">
             <Link 
-              href="/" 
+              href="/about" 
               className="text-white/50 hover:text-white tracking-tight text-sm tracking-wide transition-colors"
             >
               about
@@ -54,8 +54,29 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Right: Modern Hamburger / Menu Button */}
+          {/* Right: Actions */}
           <div className="flex-1 flex justify-end items-center gap-3">
+            {/* Desktop Auth Links */}
+            <div className="hidden sm:flex items-center mr-2">
+              {user ? (
+                <Link
+                  href="/account"
+                  className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors tracking-tight flex items-center gap-2"
+                >
+                  <User size={16} />
+                  account
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors tracking-tight"
+                >
+                  sign in
+                </Link>
+              )}
+            </div>
+
+            {/* Modern Hamburger / Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-black/20 hover:bg-white/10 text-white transition-all tracking-tight text-sm backdrop-blur-xl shadow-lg"

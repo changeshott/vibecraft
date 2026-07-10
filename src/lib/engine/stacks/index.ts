@@ -55,6 +55,83 @@ export const allStacks: StackDefinition[] = [
       "public/ — Static assets",
     ],
   },
+  {
+    id: "nuxt-3",
+    name: "Nuxt 3",
+    category: "framework",
+    version: "3",
+    iconName: "simple-icons:nuxtdotjs",
+    description: "The Intuitive Vue Framework",
+    rules: [
+      "Use Nuxt 3 with Vue 3 Composition API and <script setup>",
+      "Use auto-imports for components, composables, and Vue APIs",
+      "Place pages in pages/ directory to enable file-based routing",
+      "Use server/api/ for server routes",
+    ],
+    imports: ["vue", "nuxt"],
+    fileStructure: [
+      "app.vue — Root component",
+      "pages/ — File-based routing",
+      "components/ — Auto-imported components",
+      "server/api/ — API routes",
+    ],
+  },
+  {
+    id: "sveltekit",
+    name: "SvelteKit",
+    category: "framework",
+    version: "2",
+    iconName: "simple-icons:svelte",
+    description: "Rapid development with Svelte",
+    rules: [
+      "Use SvelteKit with Svelte 5 runes ($state, $derived, etc.)",
+      "Use +page.svelte for UI and +page.server.ts for server load functions",
+      "Keep logic close to templates where possible",
+    ],
+    imports: ["svelte", "@sveltejs/kit"],
+    fileStructure: [
+      "src/routes/ — File-based routing",
+      "src/lib/ — Shared utilities and components",
+    ],
+  },
+  {
+    id: "astro",
+    name: "Astro",
+    category: "framework",
+    version: "4",
+    iconName: "simple-icons:astro",
+    description: "The web framework for content-driven websites",
+    rules: [
+      "Use Astro components (.astro) for static content",
+      "Use framework integrations (React/Vue/Svelte) only for interactive islands",
+      "Use client:load or client:visible for interactive components",
+    ],
+    imports: ["astro"],
+    fileStructure: [
+      "src/pages/ — File-based routing",
+      "src/components/ — Astro and UI components",
+      "src/layouts/ — Page layouts",
+    ],
+  },
+  {
+    id: "remix",
+    name: "Remix",
+    category: "framework",
+    version: "2",
+    iconName: "simple-icons:remix",
+    description: "Full stack web framework focused on web standards",
+    rules: [
+      "Use Remix with React and Vite",
+      "Use route loaders for data fetching and actions for data mutations",
+      "Use nested routing structure in app/routes",
+    ],
+    imports: ["@remix-run/react", "@remix-run/node"],
+    fileStructure: [
+      "app/root.tsx — Root layout",
+      "app/routes/ — File-based routing",
+      "app/components/ — UI components",
+    ],
+  },
 
   // --- Styling ---
   {
@@ -164,6 +241,23 @@ export const allStacks: StackDefinition[] = [
       "supabase/migrations/ — SQL migration files",
     ],
   },
+  {
+    id: "firebase-db",
+    name: "Firebase Firestore",
+    category: "database",
+    version: "latest",
+    iconName: "simple-icons:firebase",
+    description: "NoSQL document database by Google",
+    rules: [
+      "Use Firebase Firestore SDK v9+ (modular API)",
+      "Set up strict security rules for all collections",
+      "Use batch writes for multi-document updates",
+    ],
+    imports: ["firebase/firestore"],
+    fileStructure: [
+      "lib/firebase.ts — Firebase initialization",
+    ],
+  },
 
   // --- Auth ---
   {
@@ -187,6 +281,58 @@ export const allStacks: StackDefinition[] = [
       "middleware.ts — Auth middleware for route protection",
     ],
   },
+  {
+    id: "firebase-auth",
+    name: "Firebase Auth",
+    category: "auth",
+    version: "latest",
+    iconName: "simple-icons:firebase",
+    description: "Authentication by Google",
+    rules: [
+      "Use Firebase Auth modular API",
+      "Support email/password and Google OAuth",
+    ],
+    imports: ["firebase/auth"],
+    fileStructure: [
+      "lib/firebase.ts — Firebase initialization",
+    ],
+  },
+  {
+    id: "clerk-auth",
+    name: "Clerk",
+    category: "auth",
+    version: "latest",
+    iconName: "simple-icons:clerk",
+    description: "Complete authentication and user management",
+    rules: [
+      "Use Clerk Provider at the root of the app",
+      "Use Clerk's pre-built UI components (<SignIn />, <UserButton />)",
+      "Use auth() middleware for protecting API routes",
+    ],
+    imports: ["@clerk/nextjs"],
+    fileStructure: [
+      "middleware.ts — Clerk auth middleware",
+    ],
+  },
+  {
+    id: "next-auth",
+    name: "NextAuth / Auth.js",
+    category: "auth",
+    version: "5",
+    iconName: "simple-icons:nextauth",
+    description: "Open source authentication for Next.js",
+    rules: [
+      "Use Auth.js (NextAuth v5) beta for App Router compatibility",
+      "Export auth, signIn, signOut from auth.ts at the project root",
+      "Use SessionProvider only when necessary (e.g., inside client components)",
+      "Prefer Server-side authentication checks using the auth() function",
+    ],
+    imports: ["next-auth"],
+    fileStructure: [
+      "auth.ts — NextAuth configuration and providers",
+      "app/api/auth/[...nextauth]/route.ts — NextAuth API route",
+    ],
+  },
 
   // --- Deploy ---
   {
@@ -205,6 +351,40 @@ export const allStacks: StackDefinition[] = [
     ],
     imports: [],
     fileStructure: ["vercel.json — Optional Vercel configuration"],
+  },
+  {
+    id: "netlify",
+    name: "Netlify",
+    category: "deploy",
+    version: "latest",
+    iconName: "simple-icons:netlify",
+    description: "Build, deploy, and scale modern web projects",
+    rules: [
+      "Use Netlify for continuous deployment from Git",
+      "Configure netlify.toml for build settings and redirects",
+      "Use Netlify Edge Functions for middleware",
+    ],
+    imports: [],
+    fileStructure: [
+      "netlify.toml — Netlify configuration",
+    ],
+  },
+  {
+    id: "railway",
+    name: "Railway",
+    category: "deploy",
+    version: "latest",
+    iconName: "simple-icons:railway",
+    description: "Bring your code, we'll handle the rest",
+    rules: [
+      "Use Railway for containerized deployments and managed databases",
+      "Provide a custom Start Command if default is not sufficient",
+      "Use railway variables for environment configuration",
+    ],
+    imports: [],
+    fileStructure: [
+      "railway.json — Optional Railway configuration",
+    ],
   },
 ];
 

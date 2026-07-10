@@ -4,7 +4,8 @@ import { ArrowUpRight, Mail, Globe } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[hsl(220,14%,96%)] min-h-screen py-12 md:py-24 flex items-center justify-center">
+    <div className="flex flex-col min-h-screen bg-[hsl(220,14%,96%)]">
+      <section className="relative overflow-hidden min-h-screen py-12 md:py-24 flex items-center justify-center shrink-0">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[320px]">
           
@@ -96,6 +97,66 @@ export default function Hero() {
 
         </div>
       </div>
-    </section>
+      </section>
+
+      {/* Components Section */}
+      <section className="relative py-24 bg-[hsl(220,14%,96%)] flex-1 z-10 border-t border-[hsl(220,13%,91%)]">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-[hsl(220,14%,10%)] mb-4">UI Components</h2>
+            <p className="text-[hsl(220,10%,40%)] font-medium">Interactive elements styled with Bento Grid.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Form Card */}
+            <div className="p-8 bg-white rounded-[2.5rem] border border-[hsl(220,13%,91%)] shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
+              <h3 className="text-2xl font-bold text-[hsl(220,14%,10%)] mb-2">Create Account</h3>
+              <p className="text-[hsl(220,10%,40%)] font-medium text-sm mb-8">Join thousands of developers.</p>
+              
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-sm font-bold text-[hsl(220,14%,10%)] mb-2">Email Address</label>
+                  <input type="email" placeholder="you@example.com" className="w-full bg-[hsl(220,14%,96%)] border border-[hsl(220,13%,91%)] rounded-2xl px-5 py-3.5 text-sm text-[hsl(220,14%,10%)] font-medium focus:border-[hsl(24,95%,53%)] focus:ring-1 focus:ring-[hsl(24,95%,53%)] outline-none transition-all placeholder:text-[hsl(220,10%,50%)]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-[hsl(220,14%,10%)] mb-2">Password</label>
+                  <input type="password" placeholder="••••••••" className="w-full bg-[hsl(220,14%,96%)] border border-[hsl(220,13%,91%)] rounded-2xl px-5 py-3.5 text-sm text-[hsl(220,14%,10%)] font-medium focus:border-[hsl(24,95%,53%)] focus:ring-1 focus:ring-[hsl(24,95%,53%)] outline-none transition-all placeholder:text-[hsl(220,10%,50%)]" />
+                </div>
+                <button className="w-full bg-[hsl(220,14%,10%)] text-white text-sm font-bold px-6 py-4 rounded-full hover:bg-[hsl(220,14%,20%)] hover:-translate-y-0.5 shadow-md hover:shadow-lg transition-all mt-4">
+                  Sign Up
+                </button>
+              </div>
+            </div>
+
+            {/* Elements Card */}
+            <div className="space-y-6">
+              <div className="p-8 bg-white rounded-[2.5rem] border border-[hsl(220,13%,91%)] shadow-sm hover:shadow-md transition-all duration-300">
+                 <h4 className="text-sm font-bold text-[hsl(220,14%,10%)] mb-6 uppercase tracking-wider">Buttons & Badges</h4>
+                 <div className="flex flex-wrap gap-4">
+                    <button className="px-6 py-3 bg-[hsl(220,14%,10%)] text-white rounded-full text-sm font-bold hover:bg-[hsl(220,14%,20%)] hover:-translate-y-0.5 transition-all shadow-md">Primary</button>
+                    <button className="px-6 py-3 bg-[hsl(220,14%,96%)] text-[hsl(220,14%,10%)] rounded-full text-sm font-bold border border-[hsl(220,13%,91%)] hover:bg-white hover:-translate-y-0.5 transition-all shadow-sm">Secondary</button>
+                 </div>
+                 <div className="flex flex-wrap gap-4 mt-6">
+                    <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-[hsl(142,71%,45%)]/10 text-[hsl(142,71%,35%)] border border-[hsl(142,71%,45%)]/20">Success</span>
+                    <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-[hsl(346,87%,43%)]/10 text-[hsl(346,87%,43%)] border border-[hsl(346,87%,43%)]/20">Error</span>
+                 </div>
+              </div>
+              
+              <div className="p-6 bg-white rounded-[2.5rem] border border-[hsl(220,13%,91%)] shadow-sm hover:shadow-lg cursor-pointer hover:-translate-y-1 transition-all duration-300 group">
+                <div className="flex justify-between items-center px-2">
+                  <div>
+                    <h5 className="text-[hsl(220,14%,10%)] font-bold text-lg">Project Alpha</h5>
+                    <p className="text-sm text-[hsl(220,10%,40%)] font-medium mt-1">Updated 2 hours ago</p>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-[hsl(220,14%,96%)] flex items-center justify-center group-hover:bg-[hsl(24,95%,53%)] transition-colors">
+                     <ArrowUpRight className="w-5 h-5 text-[hsl(220,14%,10%)] group-hover:text-white transition-colors" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

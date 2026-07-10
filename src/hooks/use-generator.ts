@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import type { GeneratorConfig, GeneratedOutput, StackCategory, UserTier } from "@/lib/types";
+import type { GeneratorConfig, GeneratedOutput, StackCategory, UserTier, VibeDefinition } from "@/lib/types";
 import { generateSystemInstructions } from "@/lib/engine/generator";
 import { allVibes } from "@/lib/engine/vibes";
 
@@ -81,7 +81,12 @@ export function useGenerator() {
   }, []);
 
   const updateVibe = useCallback((vibeId: string) => {
-    setConfig((prev) => ({ ...prev, vibe: vibeId }));
+    setConfig((prev) => ({ ...prev, vibe: vibeId, customVibeObj: undefined }));
+    setOutputs([]);
+  }, []);
+
+  const setCustomVibe = useCallback((vibe: VibeDefinition) => {
+    setConfig((prev) => ({ ...prev, vibe: "custom", customVibeObj: vibe }));
     setOutputs([]);
   }, []);
 
@@ -89,9 +94,13 @@ export function useGenerator() {
     setConfig((prev) => {
       const newStacks = { ...prev.stacks, [category]: stackId };
       
-      // Auto-select Supabase Auth if Supabase Database is selected
-      if (category === "database" && stackId === "supabase") {
-        newStacks.auth = "supabase-auth";
+      // Auto-select Auth based on Database
+      if (category === "database") {
+        if (stackId === "supabase") {
+          newStacks.auth = "supabase-auth";
+        } else if (stackId === "firebase-db") {
+          newStacks.auth = "firebase-auth";
+        }
       }
       
       return {
@@ -179,6 +188,7 @@ export function useGenerator() {
     error,
     userTier,
     updateVibe,
+    setCustomVibe,
     updateStack,
     toggleRule,
     toggleIde,

@@ -9,6 +9,7 @@ import { VibeSelector } from "@/components/generator/vibe-selector";
 import { StackConfig } from "@/components/generator/stack-config";
 import { RulesConfig } from "@/components/generator/rules-config";
 import { IdeSelector } from "@/components/generator/ide-selector";
+import { CustomVibeBuilder } from "@/components/generator/custom-vibe-builder";
 import { OutputPanel } from "@/components/generator/output-panel";
 import { LoadingAnimation } from "@/components/generator/loading-animation";
 import { useGenerator } from "@/hooks/use-generator";
@@ -25,6 +26,7 @@ export default function GeneratorPage() {
     error,
     userTier,
     updateVibe,
+    setCustomVibe,
     updateStack,
     toggleRule,
     toggleIde,
@@ -58,8 +60,8 @@ export default function GeneratorPage() {
           </motion.div>
 
           {/* Main layout */}
-          <div className="max-w-3xl mx-auto space-y-6">
-            {/* Configuration Form */}
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-8 max-w-7xl mx-auto">
+            {/* Left: Configuration Form */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -74,6 +76,12 @@ export default function GeneratorPage() {
                   </div>
                   <span className="text-base font-bold text-white tracking-tight tracking-wide">choose your vibe</span>
                 </div>
+                
+                <CustomVibeBuilder 
+                  onCustomVibeGenerated={setCustomVibe} 
+                  isActive={config.vibe === "custom"} 
+                />
+
                 <VibeSelector
                   selectedVibe={config.vibe}
                   onSelect={updateVibe}
@@ -170,6 +178,39 @@ export default function GeneratorPage() {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </motion.div>
+
+            {/* Right: Live Preview */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              className="order-first lg:order-last relative lg:sticky top-28 h-[50vh] lg:h-[calc(100vh-8rem)] rounded-[2rem] border border-white/[0.08] overflow-hidden bg-black shadow-2xl"
+            >
+              {/* Browser chrome */}
+              <div className="absolute top-0 left-0 w-full h-10 bg-white/[0.02] border-b border-white/[0.08] flex items-center px-4 gap-2 z-20 backdrop-blur-md">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-white/20" />
+                  <div className="w-3 h-3 rounded-full bg-white/20" />
+                  <div className="w-3 h-3 rounded-full bg-white/20" />
+                </div>
+                <div className="flex-1 text-center">
+                  <span className="text-xs text-white/40 font-mono">
+                    Live Preview — {config.vibe}
+                  </span>
+                </div>
+              </div>
+              
+              {/* iframe Container */}
+              <div className="w-full h-full pt-10 relative">
+                {/* We use key to force reload iframe when vibe changes so animations replay */}
+                <iframe 
+                  key={config.vibe}
+                  src={`/preview/${config.vibe}`} 
+                  className="w-full h-full border-0 bg-transparent"
+                  title="Live Preview"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

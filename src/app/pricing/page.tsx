@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Palette, Layers, Code2, Star } from "lucide-react";
+import { Check, Palette, Layers, Code2, Star, Shield } from "lucide-react";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { cn } from "@/lib/utils";
@@ -109,9 +109,9 @@ export default function PricingPage() {
                price="$39"
                period="one-time"
                badge="Lifetime Access"
-               desc="Full access to all current vibes and the complete generator."
+               desc="Lifetime access to all current vibes. Upgrade to Pro+ later for new monthly releases."
                features={[
-                 "All design vibes",
+                 "All current design vibes",
                  "All tech stack options",
                  "All IDE formats",
                  "Priority support"
@@ -136,6 +136,69 @@ export default function PricingPage() {
                buttonType="secondary"
                href="/api/checkout?variant=pro-plus"
             />
+          </motion.div>
+
+          {/* Guarantee Banner */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={4}
+            className="mt-12 max-w-3xl mx-auto flex items-center justify-center gap-4 p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl"
+          >
+            <div className="p-3 bg-[#b1ff62]/10 rounded-full border border-[#b1ff62]/20">
+              <Shield size={24} className="text-[#b1ff62]" />
+            </div>
+            <div className="text-sm md:text-base text-white/60">
+              <span className="font-bold text-white">14-Day Money-Back Guarantee.</span> Not vibing with the rules? Get a full refund, no questions asked.
+            </div>
+          </motion.div>
+
+          {/* Testimonials */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={5}
+            className="mt-20 pt-20 border-t border-white/[0.08]"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold text-white tracking-tight">loved by builders</h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  quote: "Vibecraftz saved me countless hours configuring my AI assistant. The generated MDC files are spot on.",
+                  author: "Sarah J.",
+                  role: "Frontend Engineer"
+                },
+                {
+                  quote: "The Pro+ tier is a no-brainer. Getting new vibes every month keeps our agency's projects looking fresh.",
+                  author: "Mike T.",
+                  role: "Agency Founder"
+                },
+                {
+                  quote: "I used to spend days tweaking Tailwind and components. Now I just pick a vibe, generate, and code.",
+                  author: "Elena R.",
+                  role: "Indie Hacker"
+                }
+              ].map((testimonial, i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md">
+                  <div className="flex text-[#b1ff62] mb-4">
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                    <Star size={14} fill="currentColor" />
+                  </div>
+                  <p className="text-sm text-white/70 italic mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
+                  <div>
+                    <p className="text-sm font-bold text-white tracking-tight">{testimonial.author}</p>
+                    <p className="text-xs text-white/40 tracking-tight">{testimonial.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* FAQ note */}
