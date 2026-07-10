@@ -17,10 +17,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vibecraft.dev"),
+  metadataBase: new URL("https://vibecraftz.dev"),
   title: {
-    default: "VibeCraft — Craft Stunning AI Output, Every Time",
-    template: "%s | VibeCraft",
+    default: "VibeCraftz — Craft Stunning AI Output, Every Time",
+    template: "%s | VibeCraftz",
   },
   description:
     "Generate AI system instructions that transform your coding assistant's design output. Pick a vibe, configure your stack, and download rules for Cursor, Windsurf, or Claude Code.",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vibecraft.dev",
-    siteName: "VibeCraft",
-    title: "VibeCraft — Craft Stunning AI Output, Every Time",
+    url: "https://vibecraftz.dev",
+    siteName: "VibeCraftz",
+    title: "VibeCraftz — Craft Stunning AI Output, Every Time",
     description:
       "Generate AI system instructions that transform your coding assistant's design output.",
     images: [
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "VibeCraft — AI Design System Instructions Generator",
+        alt: "VibeCraftz — AI Design System Instructions Generator",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VibeCraft — Craft Stunning AI Output, Every Time",
+    title: "VibeCraftz — Craft Stunning AI Output, Every Time",
     description:
       "Generate AI system instructions that transform your coding assistant's design output.",
     images: ["/og-image.png"],

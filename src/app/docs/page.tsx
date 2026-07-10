@@ -17,7 +17,7 @@ export default function DocsPage() {
             documentation
           </h1>
           <p className="text-white/60 mb-12 text-lg tracking-tight">
-            learn how to use vibecraft-generated files with your ai coding assistant.
+            learn how to use vibecraftz-generated files with your ai coding assistant.
           </p>
 
           {/* Cursor */}
@@ -132,7 +132,7 @@ export default function DocsPage() {
             <div className="space-y-4">
               {[
                 "keep only one vibe pack active per project for consistency.",
-                "combine vibecraft with your own project-specific rules — just append them to the same file.",
+                "combine vibecraftz with your own project-specific rules — just append them to the same file.",
                 "re-generate your rules when upgrading your tech stack version.",
                 "use the anti-hallucination rules to prevent ai from adding random packages.",
                 "start with a free vibe to test, then upgrade to pro for premium design systems.",

@@ -104,7 +104,7 @@ export default async function AccountPage() {
                   ) : (
                     <div>
                       <p className="text-sm text-white/70 tracking-tight leading-relaxed">
-                        you have full access to vibecraft features. thank you for your support!
+                        you have full access to vibecraftz features. thank you for your support!
                       </p>
                       {endDate && (
                         <p className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 tracking-tight">

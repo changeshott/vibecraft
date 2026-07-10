@@ -17,7 +17,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <Link href="/" className="inline-flex flex-col group">
               <span className="tracking-tight text-2xl font-bold tracking-tight text-white group-hover:opacity-80 transition-opacity">
-                vibecraft
+                vibecraftz
               </span>
               <span className="text-sm text-white/40 tracking-tight -mt-1 group-hover:opacity-80 transition-opacity">
                 by changeshott
@@ -81,7 +81,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/[0.08] py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40 tracking-tight">
-            &copy; {currentYear} vibecraft by changeshott. all rights reserved.
+            &copy; {currentYear} vibecraftz by changeshott. all rights reserved.
           </p>
           <p className="text-xs text-white/40 flex items-center gap-1.5 tracking-tight">
             made with <Heart size={12} className="text-[#b1ff62] fill-[#b1ff62]/50" /> for developers who care about design

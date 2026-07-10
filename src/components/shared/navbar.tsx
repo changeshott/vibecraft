@@ -49,7 +49,7 @@ export function Navbar() {
           <div className="flex-1 flex justify-start sm:justify-center">
             <Link href="/" className="relative z-10 flex items-center gap-2 group">
                <span className="tracking-tight text-xl font-bold tracking-tight text-white group-hover:opacity-80 transition-opacity">
-                 vibecraft
+                 vibecraftz
                </span>
             </Link>
           </div>

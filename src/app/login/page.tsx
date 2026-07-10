@@ -111,7 +111,7 @@ export default function LoginPage() {
           >
             <div className="text-center mb-10">
               <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">welcome back</h1>
-              <p className="text-sm text-white/60 tracking-tight tracking-wide">sign in to access your vibecraft account</p>
+              <p className="text-sm text-white/60 tracking-tight tracking-wide">sign in to access your vibecraftz account</p>
             </div>
 
             {message && (

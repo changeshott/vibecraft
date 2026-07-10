@@ -43,7 +43,7 @@ export default function GalleryPage() {
               vibe <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/40 to-white/10">gallery</span>
             </h1>
             <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto tracking-tight leading-relaxed">
-              Explore universally adaptable design systems. See how Vibecraft transforms standard structures into spectacular, unique web experiences.
+              Explore universally adaptable design systems. See how Vibecraftz transforms standard structures into spectacular, unique web experiences.
             </p>
           </motion.div>
 

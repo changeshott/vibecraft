@@ -6,7 +6,7 @@ export const pricingPlans: PricingPlan[] = [
     name: "Free",
     price: 0,
     period: "one-time",
-    description: "Try VibeCraft with basic vibes and limited options.",
+    description: "Try VibeCraftz with basic vibes and limited options.",
     features: [
       "3 basic design vibes",
       "Next.js + Tailwind stack only",

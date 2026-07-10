@@ -1,5 +1,5 @@
 /* ============================================
-   VIBECRAFT — Core TypeScript Types
+   VIBECRAFTZ — Core TypeScript Types
    ============================================ */
 
 // --- Color Palette ---

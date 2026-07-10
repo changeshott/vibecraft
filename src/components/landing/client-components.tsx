@@ -118,7 +118,7 @@ export function HeroSection() {
               </div>
               <div className="flex-1 text-center">
                 <span className="text-xs text-white/40 font-mono">
-                  vibecraft.dev/generator
+                  vibecraftz.dev/generator
                 </span>
               </div>
             </div>
@@ -140,7 +140,7 @@ export function HeroSection() {
                 ))}
               </div>
               <div className="code-block p-4 text-xs leading-loose bg-black/60 border border-white/[0.05]">
-                <span className="text-white/40"># VibeCraft Design System: Dark SaaS Pro</span>
+                <span className="text-white/40"># VibeCraftz Design System: Dark SaaS Pro</span>
                 <br />
                 <span className="text-white">## 1. TECHNOLOGY RULES</span>
                 <br />
@@ -215,7 +215,7 @@ export function ProblemSection() {
                   ✗
                 </div>
                 <div className="tracking-tight text-white/80 font-bold tracking-wide">
-                  without vibecraft
+                  without vibecraftz
                 </div>
               </div>
               <div className="mt-6 p-5 bg-white rounded border border-gray-200 shadow-sm relative overflow-hidden group">
@@ -252,7 +252,7 @@ export function ProblemSection() {
                   ✓
                 </div>
                 <div className="tracking-tight text-white font-bold tracking-wide flex items-center gap-2">
-                  with vibecraft
+                  with vibecraftz
                   <span className="px-2 py-0.5 rounded-full bg-[#b1ff62] text-black text-[10px] font-bold uppercase tracking-wider not-italic">
                     Pro
                   </span>
@@ -261,7 +261,7 @@ export function ProblemSection() {
 
               <div className="mt-6 p-6 bg-[#0a0f1c] rounded-2xl border border-white/10 shadow-lg relative group">
                 <div className="absolute inset-0 bg-[#b1ff62]/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm z-10 rounded-2xl">
-                  <span className="bg-[#b1ff62] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(177,255,98,0.5)]">VIBECRAFT OUTPUT</span>
+                  <span className="bg-[#b1ff62] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(177,255,98,0.5)]">VIBECRAFTZ OUTPUT</span>
                 </div>
                 <h4 className="text-white font-bold text-xl mb-1 tracking-tight">Create Account</h4>
                 <p className="text-white/50 text-xs mb-4">Join thousands of developers.</p>
@@ -377,7 +377,7 @@ export function ResultShowcaseSection() {
       icon: Layers,
       badge: "CONFIGURE",
       title: "Select your exact framework and styling engine.",
-      desc: "No generic advice. Tell VibeCraft exactly what you're building with, and it adapts the rules perfectly for Next.js, Tailwind, and more.",
+      desc: "No generic advice. Tell VibeCraftz exactly what you're building with, and it adapts the rules perfectly for Next.js, Tailwind, and more.",
       mockup: (
         <div className="w-full h-full bg-[#0a0a0a] p-6 flex flex-col gap-4 justify-center items-center">
           <div className="flex gap-4">
@@ -422,13 +422,13 @@ export function ResultShowcaseSection() {
       icon: Zap,
       badge: "EXPORT",
       title: "Instantly compile thousands of lines of prompt engineering.",
-      desc: "VibeCraft generates a hardened .cursorrules or AGENTS.md file containing strict design constraints for your AI.",
+      desc: "VibeCraftz generates a hardened .cursorrules or AGENTS.md file containing strict design constraints for your AI.",
       mockup: (
         <div className="w-full h-full bg-[#050505] p-6 md:p-10 border-l border-white/5 font-mono text-[10px] md:text-xs text-white/60 leading-relaxed flex flex-col justify-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#050505] to-transparent z-10" />
           <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#050505] to-transparent z-10" />
 
-          <span className="text-white/30"># VibeCraft AI Rules</span>
+          <span className="text-white/30"># VibeCraftz AI Rules</span>
           <br />
           <span className="text-[#b1ff62]">## 1. Core Constraints</span>
           <span>- NEVER invent CSS variables.</span>
@@ -726,7 +726,7 @@ export function FeaturesSection() {
           <div className="max-w-2xl">
             <motion.div variants={fadeInUp} custom={0} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 mb-6">
               <Zap size={14} className="text-[#b1ff62]" />
-              <span className="text-xs font-bold text-white/80 tracking-tight">VibeCraft Engine</span>
+              <span className="text-xs font-bold text-white/80 tracking-tight">VibeCraftz Engine</span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
@@ -739,7 +739,7 @@ export function FeaturesSection() {
           </div>
           <motion.div variants={fadeInUp} custom={2} className="max-w-lg lg:pb-2">
             <p className="text-base md:text-lg text-white/50 leading-relaxed tracking-tight">
-              Stop fighting with your AI over design decisions. VibeCraft injects a hardened, production-ready rule system into your IDE that forces the AI to write beautiful, consistent code on the first try.
+              Stop fighting with your AI over design decisions. VibeCraftz injects a hardened, production-ready rule system into your IDE that forces the AI to write beautiful, consistent code on the first try.
             </p>
           </motion.div>
         </motion.div>
@@ -985,16 +985,16 @@ function PricingCard({ delay, title, badgeTitle, badgeColor, price, period, orig
 export function FAQSection() {
   const faqs = [
     {
-      q: "what exactly is a vibecraft file?",
+      q: "what exactly is a vibecraftz file?",
       a: "it's a structured markdown file (.cursorrules, agents.md, or claude.md) that tells your ai coding assistant exactly how to design your ui — including colors, typography, component patterns, animation rules, and architecture constraints.",
     },
     {
-      q: "which ai tools does vibecraft work with?",
-      a: "vibecraft generates files for cursor (.cursorrules), windsurf (agents.md), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
+      q: "which ai tools does vibecraftz work with?",
+      a: "vibecraftz generates files for cursor (.cursorrules), windsurf (agents.md), claude code (claude.md), and any other ai assistant that accepts system instructions in markdown format.",
     },
     {
       q: "how is this different from free cursor rules on github?",
-      a: "free rules are generic coding guidelines. vibecraft provides complete, curated design systems — specific color palettes, typography scales, component patterns, animation rules, and anti-hallucination constraints that produce consistent, beautiful output.",
+      a: "free rules are generic coding guidelines. vibecraftz provides complete, curated design systems — specific color palettes, typography scales, component patterns, animation rules, and anti-hallucination constraints that produce consistent, beautiful output.",
     },
     {
       q: "will it work with my specific tech stack?",
@@ -1094,7 +1094,7 @@ export function FAQSection() {
                 we listen closely. ask a question, share feedback, or drop a quick hello.
               </p>
               <Link 
-                href="mailto:support@vibecraft.dev" 
+                href="mailto:support@vibecraftz.dev" 
                 className="block w-full text-center py-4 px-6 rounded-xl bg-white text-black text-sm font-bold tracking-tight hover:bg-white/90 transition-colors duration-200"
               >
                 write to us

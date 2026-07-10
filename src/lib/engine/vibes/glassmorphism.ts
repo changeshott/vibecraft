@@ -245,7 +245,7 @@ export default function DetailPage() {
               </p>
               
               <div className="bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 my-8 shadow-inner">
-                 <code className="text-[hsl(174,80%,50%)] font-mono">npm install @vibecraft/engine framer-motion</code>
+                 <code className="text-[hsl(174,80%,50%)] font-mono">npm install @vibecraftz/engine framer-motion</code>
               </div>
               
               <h2>Configuring the Provider</h2>
