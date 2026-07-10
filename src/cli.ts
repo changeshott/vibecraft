@@ -52,7 +52,8 @@ async function main() {
     deploy: "",
   };
 
-  for (const category of stackCategories) {
+  for (const categoryObj of stackCategories) {
+    const category = categoryObj.id as StackCategory;
     const optionsForCategory = allStacks.filter((s) => s.category === category);
     
     // Some categories might have 0 or 1 option, but let's prompt if there's more than 1
