@@ -60,6 +60,7 @@ export interface VibeDefinition {
   architectureNotes?: string;
   enterpriseBlueprints?: { title: string; code: string; language: string; description?: string }[];
   incompatibleRules?: string[];
+  isCommunity?: boolean;
 }
 
 // --- Stack Definition ---

@@ -138,7 +138,7 @@ export function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between px-4 py-3.5 text-sm font-medium text-white border border-white/20 hover:bg-white/10 rounded-2xl transition-all tracking-tight mt-1"
                   >
-                    try generator
+                    try free first
                     <ArrowRight size={16} className="opacity-50" />
                   </Link>
                 )}

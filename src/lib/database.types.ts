@@ -12,8 +12,146 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          session_id: string | null
+          step_name: string | null
+          user_id: string | null
+          vibe_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          session_id?: string | null
+          step_name?: string | null
+          user_id?: string | null
+          vibe_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          session_id?: string | null
+          step_name?: string | null
+          user_id?: string | null
+          vibe_id?: string | null
+        }
+        Relationships: []
+      }
+      community_vibe_votes: {
+        Row: {
+          created_at: string | null
+          user_id: string
+          vibe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          user_id: string
+          vibe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          user_id?: string
+          vibe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_vibe_votes_vibe_id_fkey"
+            columns: ["vibe_id"]
+            isOneToOne: false
+            referencedRelation: "community_vibes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_vibes: {
+        Row: {
+          created_at: string | null
+          definition_json: Json
+          id: string
+          name: string
+          short_description: string
+          status: Database["public"]["Enums"]["vibe_status"] | null
+          updated_at: string | null
+          upvotes_count: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          definition_json: Json
+          id?: string
+          name: string
+          short_description: string
+          status?: Database["public"]["Enums"]["vibe_status"] | null
+          updated_at?: string | null
+          upvotes_count?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          definition_json?: Json
+          id?: string
+          name?: string
+          short_description?: string
+          status?: Database["public"]["Enums"]["vibe_status"] | null
+          updated_at?: string | null
+          upvotes_count?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          source: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          source?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -35,6 +173,39 @@ export type Database = {
         }
         Relationships: []
       }
+      testimonials: {
+        Row: {
+          approved: boolean | null
+          avatar: string | null
+          content: string
+          created_at: string
+          id: string
+          name: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean | null
+          avatar?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          name: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          approved?: boolean | null
+          avatar?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          name?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -46,7 +217,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      vibe_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -172,7 +343,12 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  public: {
+  graphql_public: {
     Enums: {},
+  },
+  public: {
+    Enums: {
+      vibe_status: ["pending", "approved", "rejected"],
+    },
   },
 } as const

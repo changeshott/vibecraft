@@ -5,14 +5,25 @@ import { cn } from "@/lib/utils";
 import { Lock, Check } from "lucide-react";
 import { DynamicIcon } from "@/components/shared/dynamic-icon";
 import type { UserTier } from "@/lib/types";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 interface VibeSelectorProps {
   selectedVibe: string;
   onSelect: (vibeId: string) => void;
   userTier: UserTier;
+  communityVibes?: any[];
 }
 
-export function VibeSelector({ selectedVibe, onSelect, userTier }: VibeSelectorProps) {
+export function VibeSelector({ selectedVibe, onSelect, userTier, communityVibes = [] }: VibeSelectorProps) {
+  const { track } = useAnalytics();
+  
+  const handleSelect = (vibeId: string) => {
+    track("funnel_step", "vibe_selected", vibeId);
+    onSelect(vibeId);
+  };
+
+  const combinedVibes = [...allVibes, ...communityVibes];
+
   return (
     <div className="space-y-4">
       <div>
@@ -23,14 +34,14 @@ export function VibeSelector({ selectedVibe, onSelect, userTier }: VibeSelectorP
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {allVibes.map((vibe) => {
+        {combinedVibes.map((vibe) => {
           const isSelected = selectedVibe === vibe.id;
           const isLocked = vibe.tier !== "free" && userTier === "free";
 
           return (
             <button
               key={vibe.id}
-              onClick={() => !isLocked && onSelect(vibe.id)}
+              onClick={() => !isLocked && handleSelect(vibe.id)}
               disabled={isLocked}
               className={cn(
                 "relative group text-left p-5 rounded-[1.5rem] border transition-all duration-300",
@@ -64,9 +75,14 @@ export function VibeSelector({ selectedVibe, onSelect, userTier }: VibeSelectorP
                     <span className="font-bold text-base text-white truncate tracking-tight tracking-wide">
                       {vibe.name}
                     </span>
-                    {vibe.tier !== "free" && (
+                    {vibe.tier !== "free" && !vibe.isCommunity && (
                       <span className="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#b1ff62]/10 text-[#b1ff62] border border-[#b1ff62]/20">
                         pro
+                      </span>
+                    )}
+                    {vibe.isCommunity && (
+                      <span className="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        community
                       </span>
                     )}
                   </div>

@@ -1,0 +1,11 @@
+export { HeroSection } from "./hero-section";
+export { ProblemSection } from "./problem-section";
+export { HowItWorksSection } from "./how-it-works-section";
+export { ResultShowcaseSection } from "./result-showcase-section";
+export { VibeShowcaseSection } from "./vibe-showcase-section";
+export { FeaturesSection } from "./features-section";
+export { PricingSection } from "./pricing-section";
+export { TestimonialSection } from "./testimonial-section";
+export { FAQSection } from "./faq-section";
+export { CTASection } from "./cta-section";
+export { FreeSampleSection } from "./free-sample-section";

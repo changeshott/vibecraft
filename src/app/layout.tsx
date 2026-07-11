@@ -6,12 +6,14 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 
@@ -61,11 +63,15 @@ export const metadata: Metadata = {
       "Generate AI system instructions that transform your coding assistant's design output.",
     images: ["/og-image.png"],
   },
+  alternates: {
+    canonical: "https://vibecraftz.vercel.app",
+  },
   robots: {
     index: true,
     follow: true,
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -79,10 +85,27 @@ export default function RootLayout({
       style={{ backgroundColor: "#090909" }}
     >
       <body className="min-h-screen flex flex-col bg-[#090909] text-white overflow-x-clip relative">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "VibeCraftz",
+              url: "https://vibecraftz.vercel.app",
+              description: "Generate AI system instructions that transform your coding assistant's design output.",
+              publisher: {
+                "@type": "Organization",
+                name: "VibeCraftz"
+              }
+            })
+          }}
+        />
         <div className="fixed inset-0 opacity-[0.2] mix-blend-overlay pointer-events-none noise z-0" />
         <div className="relative z-10 flex flex-col min-h-screen">
           {children}
         </div>
+
       </body>
     </html>
   );

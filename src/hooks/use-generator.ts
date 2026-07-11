@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { GeneratorConfig, GeneratedOutput, StackCategory, UserTier, VibeDefinition } from "@/lib/types";
 import { generateSystemInstructions } from "@/lib/engine/generator";
 import { allVibes } from "@/lib/engine/vibes";
+import { getCommunityVibes } from "@/lib/supabase/vibes-api";
 
 const defaultConfig: GeneratorConfig = {
   vibe: "minimalist-clean",
@@ -28,6 +29,7 @@ export function useGenerator() {
   const [activeOutput, setActiveOutput] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [communityVibes, setCommunityVibes] = useState<VibeDefinition[]>([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,15 +60,38 @@ export function useGenerator() {
       if (isMounted) {
         setUserTier(currentTier);
         
+        // Fetch community vibes
+        let fetchedCommunityVibes: VibeDefinition[] = [];
+        try {
+          const cv = await getCommunityVibes("top");
+          // Map to VibeDefinition and add a marker
+          fetchedCommunityVibes = cv.map((v) => ({
+            ...v.definition_json,
+            id: v.id,
+            name: v.name,
+            shortDescription: v.short_description,
+            isCommunity: true,
+            tier: "pro" // Community vibes are pro-only
+          } as unknown as VibeDefinition));
+          setCommunityVibes(fetchedCommunityVibes);
+        } catch (err) {
+          console.error("Failed to fetch community vibes:", err);
+        }
+
         // After determining tier, check URL for vibe param
         if (typeof window !== "undefined") {
           const urlParams = new URLSearchParams(window.location.search);
           const vibeParam = urlParams.get("vibe");
           
           if (vibeParam) {
-            const vibeObj = allVibes.find(v => v.id === vibeParam);
-            if (vibeObj && (vibeObj.tier === "free" || currentTier === "pro")) {
-              setConfig((prev) => ({ ...prev, vibe: vibeParam }));
+            const allAvailableVibes = [...allVibes, ...fetchedCommunityVibes];
+            const vibeObj = allAvailableVibes.find(v => v.id === vibeParam);
+            if (vibeObj && (vibeObj.tier === "free" || currentTier === "pro" || currentTier === "pro_plus" || currentTier === "teams")) {
+              setConfig((prev) => ({ 
+                ...prev, 
+                vibe: vibeParam,
+                customVibeObj: vibeObj.isCommunity ? vibeObj : undefined 
+              }));
             }
           }
         }
@@ -125,11 +150,16 @@ export function useGenerator() {
     setConfig((prev) => {
       const isAdding = !prev.targetIdes.includes(ideId);
 
-      if (isAdding && (userTier as string) === "free" && prev.targetIdes.length >= 1) {
-        setError("Free tier is limited to 1 Target IDE at a time. Upgrade to Pro to generate multiple files simultaneously.");
-        return prev;
+      // If user is on free tier, selecting a new IDE simply replaces the current one
+      if (isAdding && (userTier as string) === "free") {
+        setError(null);
+        return {
+          ...prev,
+          targetIdes: [ideId],
+        };
       }
 
+      // For pro users, toggle the IDE in the array
       setError(null);
       return {
         ...prev,
@@ -146,7 +176,7 @@ export function useGenerator() {
     setError(null);
 
     // Artificial delay for UX (feels like it's thinking)
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     try {
       if (config.targetIdes.length === 0) {
@@ -187,6 +217,7 @@ export function useGenerator() {
     isGenerating,
     error,
     userTier,
+    communityVibes,
     updateVibe,
     setCustomVibe,
     updateStack,

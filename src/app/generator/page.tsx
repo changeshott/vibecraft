@@ -12,11 +12,14 @@ import { IdeSelector } from "@/components/generator/ide-selector";
 import { CustomVibeBuilder } from "@/components/generator/custom-vibe-builder";
 import { OutputPanel } from "@/components/generator/output-panel";
 import { LoadingAnimation } from "@/components/generator/loading-animation";
+import { PreviewRenderer } from "@/components/generator/preview-renderer";
 import { useGenerator } from "@/hooks/use-generator";
 import { cn } from "@/lib/utils";
+import { PageTracker, useAnalytics } from "@/hooks/use-analytics";
 
 export default function GeneratorPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { track } = useAnalytics();
   const {
     config,
     outputs,
@@ -25,6 +28,7 @@ export default function GeneratorPage() {
     isGenerating,
     error,
     userTier,
+    communityVibes,
     updateVibe,
     setCustomVibe,
     updateStack,
@@ -39,6 +43,7 @@ export default function GeneratorPage() {
     <>
       <Navbar />
       <main className="pt-28 pb-16 bg-[#090909] min-h-screen relative">
+        <PageTracker stepName="generator_started" />
         {/* Ambient background blob */}
         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
 
@@ -86,6 +91,7 @@ export default function GeneratorPage() {
                   selectedVibe={config.vibe}
                   onSelect={updateVibe}
                   userTier={userTier}
+                  communityVibes={communityVibes}
                 />
               </section>
 
@@ -138,7 +144,9 @@ export default function GeneratorPage() {
                 onClick={async () => {
                   setIsModalOpen(true);
                   const success = await generate();
-                  if (!success) {
+                  if (success) {
+                    track("generation", "code_generated", config.vibe);
+                  } else {
                     setIsModalOpen(false);
                   }
                 }}
@@ -201,15 +209,9 @@ export default function GeneratorPage() {
                 </div>
               </div>
               
-              {/* iframe Container */}
+              {/* Preview Container */}
               <div className="w-full h-full pt-10 relative">
-                {/* We use key to force reload iframe when vibe changes so animations replay */}
-                <iframe 
-                  key={config.vibe}
-                  src={`/preview/${config.vibe}`} 
-                  className="w-full h-full border-0 bg-transparent"
-                  title="Live Preview"
-                />
+                <PreviewRenderer vibe={config.vibe} />
               </div>
             </motion.div>
           </div>
@@ -247,8 +249,13 @@ export default function GeneratorPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex flex-col flex-1 min-h-0"
                 >
-                  <h3 className="text-xl font-bold text-white mb-6 tracking-tight">
+                  <h3 className="text-xl font-bold text-white mb-6 tracking-tight flex items-center gap-2">
                     output preview
+                    {outputs.length > 0 && (
+                      <span className="text-sm font-normal text-white/40">
+                        — generated {outputs.length} file{outputs.length > 1 ? "s" : ""}
+                      </span>
+                    )}
                   </h3>
                   <OutputPanel
                     outputs={outputs}
@@ -256,6 +263,7 @@ export default function GeneratorPage() {
                     onSetActive={setActiveOutput}
                     onCopy={copyToClipboard}
                     onDownload={downloadFile}
+                    userTier={userTier}
                   />
                 </motion.div>
               )}
