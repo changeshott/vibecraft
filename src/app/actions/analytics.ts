@@ -29,7 +29,7 @@ export async function trackEvent({
   sessionId?: string;
 }) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { session } } = await supabase.auth.getSession();
     
     await supabase.from("analytics_events").insert({
@@ -87,7 +87,7 @@ export async function getDashboardData() {
     }
 
     dailyData?.forEach(event => {
-      const date = new Date(event.created_at);
+      const date = new Date(event.created_at || Date.now());
       const dayName = dayNames[date.getDay()];
       if (dailyCounts[dayName] !== undefined) {
         dailyCounts[dayName]++;
